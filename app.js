@@ -7,6 +7,7 @@ const app = new Vue({
             {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:''}
         ],
         salidas: [],
+        almacen:[],
         barCode: '',
         cambio: '',
         newName: '',
@@ -80,6 +81,35 @@ const app = new Vue({
         },
         focusBarcodeInput() {
             this.$refs.barcodeInput.focus();
+        },
+        transferData: function() {
+            let datosDB1 = JSON.parse(localStorage.getItem('lukiControl'));
+            
+            if (datosDB1 !== null) {
+                let datosDB2 = JSON.parse(localStorage.getItem('lukiControl2'));
+                
+                if (datosDB2 === null) {
+                    datosDB2 = [];
+                }
+
+                let nuevosDatos = datosDB2.concat(datosDB1);
+
+                localStorage.setItem('lukiControl2', JSON.stringify(nuevosDatos));
+
+                // Eliminar los datos de lukiControl
+                localStorage.removeItem('lukiControl');
+
+                console.log('Datos transferidos exitosamente de lukiControl a lukiControl2');
+
+                // Recargar la página para actualizar los datos
+                window.location.reload();
+            } else {
+                console.log('No hay datos en lukiControl para transferir');
+            }
+        },
+        updateTotal: function (item) {
+            item.total = item.cantidad * item.precio;
+            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         }
     },
     computed: {
@@ -93,12 +123,20 @@ const app = new Vue({
     mounted() {
         this.focusBarcodeInput();
     },
-    created: function(){
+    created: function() {
         let datosDB = JSON.parse(localStorage.getItem('lukiControl'));
-        if(datosDB === null){
+        if (datosDB === null) {
             this.salidas = [];
-        }else{
+        } else {
             this.salidas = datosDB;
         }
+    
+        let datosDB2 = JSON.parse(localStorage.getItem('lukiControl2'));
+        if (datosDB2 === null) {
+            this.almacen = [];
+        } else {
+            this.almacen = datosDB2;
+        }
     }
+    
 });
