@@ -2,16 +2,15 @@ const app = new Vue({
     el: '#app',
     data:{
         entradas: [
-            {barCode:'0',nombre: 'Huevos/Blanquillos', precio:'2.5', cantidad:'1', total:''},
-            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:'18', cantidad:'1', total:''},
-            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:''}
+            {barCode:'0',nombre: 'Huevos/Blanquillos', precio:'2.5', cantidad:'1', total:'', fecha:'', stock:''},
+            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:'18', cantidad:'1', total:'', fecha:'', stock:''},
+            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:'', fecha:'', stock:''}
         ],
-        salidas: [],
-        almacen:[],
-        barCode: '',
-        cambio: '',
-        newName: '',
-        newCash: '',
+        salidas: [], almacen:[], datosFiltrados: [],
+        barCode: '', cambio: '',
+        newName: '', newCash: '',
+        Today: new Date().toLocaleDateString()
+        
     },   
     methods: {
         addProducto: function(){
@@ -32,7 +31,8 @@ const app = new Vue({
                         nombre: productoEncontrado.nombre,
                         precio: productoEncontrado.precio,
                         cantidad: productoEncontrado.cantidad,  // Inicialmente se agrega con cantidad 1
-                        total: productoEncontrado.precio  // Inicialmente el total es igual al precio
+                        total: productoEncontrado.precio,  // Inicialmente el total es igual al precio
+                        fecha: new Date().toLocaleDateString()
                     });
                 }
             } else {
@@ -66,7 +66,8 @@ const app = new Vue({
             if (this.newName.trim() !== '' && this.newCash.trim() !== '') {
                 this.salidas.push({
                     nombre: this.newName,
-                    total: this.newCash
+                    total: this.newCash,
+                    fecha: new Date().toLocaleDateString()
                 });
                 localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
                 this.newName = '';
@@ -80,7 +81,11 @@ const app = new Vue({
             document.getElementById(nextInputId).focus();
         },
         focusBarcodeInput() {
-            this.$refs.barcodeInput.focus();
+            if (this.$refs.barcodeInput) {
+                this.$refs.barcodeInput.focus();
+            } else {
+                console.warn('El elemento de entrada no está definido');
+            }
         },
         transferData: function() {
             let datosDB1 = JSON.parse(localStorage.getItem('lukiControl'));
@@ -110,6 +115,10 @@ const app = new Vue({
         updateTotal: function (item) {
             item.total = item.cantidad * item.precio;
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
+        },
+        filtrarPorFecha: function() {
+            console.log(this.almacen);
+            this.datosFiltrados = this.almacen.filter(item => item.fecha === this.Today);
         }
     },
     computed: {
@@ -118,6 +127,9 @@ const app = new Vue({
         },
         cambioRestante: function() {
             return parseFloat(this.cambio) - this.totalGeneral;
+        },
+        sumaTotal() {
+            return this.datosFiltrados.reduce((sum, item) => sum + parseFloat(item.total), 0);
         }
     },    
     mounted() {
