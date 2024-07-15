@@ -119,6 +119,22 @@ const app = new Vue({
         filtrarPorFecha: function() {
             console.log(this.almacen);
             this.datosFiltrados = this.almacen.filter(item => item.fecha === this.Today);
+        },
+        async share() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                    title: 'GOING - Product',
+                    text: 'Prueba y previsualización al compartir un producto de GOING',
+                    url: 'https://denyl911.github.io/vexdeMarket/products/product/'
+                });
+                    console.log('Contenido compartido exitosamente');
+                } catch (error) {
+                    console.error('Error al compartir:', error);
+                }
+            } else {
+                console.log('La API Web de Share no está disponible en este navegador');
+            }
         }
     },
     computed: {
