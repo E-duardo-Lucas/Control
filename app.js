@@ -9,8 +9,10 @@ const app = new Vue({
         salidas: [], almacen:[], datosFiltrados: [],
         barCode: '', cambio: '',
         newName: '', newCash: '',
-        Today: new Date().toLocaleDateString()
-        
+        mil:'', quinientos:'', doscientos: '', cien: '',
+        cincuenta: '', veinte: '', diez: '', cinco: '',
+        dos: '', uno: '', cincuentaCentavos: '',
+        Today: new Date().toLocaleDateString()        
     },   
     methods: {
         addProducto: function(){
