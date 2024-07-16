@@ -125,11 +125,13 @@ const app = new Vue({
         async share() {
             if (navigator.share) {
                 try {
+                    const datosParaCompartir = this.datosFiltrados.map(item => 
+                        `Nombre: ${item.nombre}, Precio: ${item.precio}, Cantidad: ${item.cantidad}, Total: ${item.total}, Fecha: ${item.fecha}`).join('\n');
+                    
                     await navigator.share({
-                    title: 'GOING - Product',
-                    text: 'Prueba y previsualización al compartir un producto de GOING',
-                    url: 'https://denyl911.github.io/vexdeMarket/products/product/'
-                });
+                        title: 'LUKI - Corte',
+                        text: `Datos filtrados:\n${datosParaCompartir}`,
+                    });
                     console.log('Contenido compartido exitosamente');
                 } catch (error) {
                     console.error('Error al compartir:', error);
@@ -137,7 +139,7 @@ const app = new Vue({
             } else {
                 console.log('La API Web de Share no está disponible en este navegador');
             }
-        }
+        }        
     },
     computed: {
         totalGeneral: function() {
