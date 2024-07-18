@@ -128,9 +128,12 @@ const app = new Vue({
                     const datosParaCompartir = this.datosFiltrados.map(item => 
                         `Nombre: ${item.nombre}, Total: ${item.total}, Fecha: ${item.fecha}`).join('\n');
                     
-                    const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
+                    //const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
                     const mensaje = `Datos filtrados:\n${datosParaCompartir}`;
-                    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
+                    const enlaceGrupoWhatsApp = 'https://chat.whatsapp.com/Kgc03gwwo007hmoYMnSh4p'; // Reemplaza con el enlace de invitación del grupo
+
+                    // No es posible agregar el mensaje directamente al enlace del grupo
+                    const urlWhatsApp = `https://wa.me/?text=${encodeURIComponent(mensaje)}&app_absent=0&src=web`; // Abre la web de WhatsApp
                     
                     window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña
                     console.log('Contenido compartido exitosamente');
