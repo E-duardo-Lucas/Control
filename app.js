@@ -126,12 +126,13 @@ const app = new Vue({
             if (navigator.share) {
                 try {
                     const datosParaCompartir = this.datosFiltrados.map(item => 
-                        `Nombre: ${item.nombre}, Precio: ${item.precio}, Cantidad: ${item.cantidad}, Total: ${item.total}, Fecha: ${item.fecha}`).join('\n');
+                        `Nombre: ${item.nombre}, Total: ${item.total}, Fecha: ${item.fecha}`).join('\n');
                     
-                    await navigator.share({
-                        title: 'LUKI - Corte',
-                        text: `Datos filtrados:\n${datosParaCompartir}`,
-                    });
+                    const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
+                    const mensaje = `Datos filtrados:\n${datosParaCompartir}`;
+                    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
+                    
+                    window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña
                     console.log('Contenido compartido exitosamente');
                 } catch (error) {
                     console.error('Error al compartir:', error);
@@ -139,7 +140,7 @@ const app = new Vue({
             } else {
                 console.log('La API Web de Share no está disponible en este navegador');
             }
-        }        
+        }                
     },
     computed: {
         totalGeneral: function() {
