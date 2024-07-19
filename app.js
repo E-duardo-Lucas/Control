@@ -9,9 +9,10 @@ const app = new Vue({
         salidas: [], almacen:[], datosFiltrados: [],
         barCode: '', cambio: '',
         newName: '', newCash: '',
-        mil:'', quinientos:'', doscientos: '', cien: '',
-        cincuenta: '', veinte: '', diez: '', cinco: '',
-        dos: '', uno: '', cincuentaCentavos: '',
+        mil:'', quinientos:'', doscientos:'', cien:'',
+        cincuenta:'', veinte:'', diez:'', cinco:'',
+        dos:'', uno:'', cincuentaCentavos:'',
+        totalEnCorte:'',
         Today: new Date().toLocaleDateString()        
     },   
     methods: {
@@ -126,7 +127,7 @@ const app = new Vue({
             if (navigator.share) {
                 try {
                     const datosParaCompartir = this.datosFiltrados.map(item => 
-                        `Nombre: ${item.nombre}, Total: ${item.total}, Fecha: ${item.fecha}`).join('\n');
+                        `✔${item.nombre},${item.total},${item.cantidad},${item.fecha}`).join('\n');
                     
                     const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
                     const mensaje = `Datos filtrados:\n${datosParaCompartir}`;
@@ -140,7 +141,33 @@ const app = new Vue({
             } else {
                 console.log('La API Web de Share no está disponible en este navegador');
             }
-        }                
+        },
+        calcularTotalEnCorte: function () {
+            const totalMil = this.mil * 1000;
+            const totalQuinientos = this.quinientos * 500;
+            const totalDoscientos = this.doscientos * 200;
+            const totalCien = this.cien * 100;
+            const totalCincuenta = this.cincuenta * 50;
+            const totalVeinte = this.veinte * 20;
+            const totalDiez = this.diez * 10;
+            const totalCinco = this.cinco * 5;
+            const totalDos = this.dos * 2;
+            const totalUno = this.uno * 1;
+            const totalCincuentaCentavos = this.cincuentaCentavos * 0.5;
+
+            this.totalEnCorte = totalMil + totalQuinientos + totalDoscientos + 
+                                totalCien + totalCincuenta + totalVeinte + 
+                                totalDiez + totalCinco + totalDos + 
+                                totalUno + totalCincuentaCentavos;
+        },         
+        calcularSobrante: function() {
+            const diferencia = this.totalEnCorte - this.sumaTotal;
+            return diferencia < 0 ? 0 : diferencia;
+        },
+        calcularFaltante: function() {
+            const diferencia = this.sumaTotal - this.totalEnCorte;
+            return diferencia < 0 ? 0 : diferencia;
+        }       
     },
     computed: {
         totalGeneral: function() {
@@ -151,7 +178,7 @@ const app = new Vue({
         },
         sumaTotal() {
             return this.datosFiltrados.reduce((sum, item) => sum + parseFloat(item.total), 0);
-        }
+        },      
     },    
     mounted() {
         this.focusBarcodeInput();

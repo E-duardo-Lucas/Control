@@ -37,7 +37,7 @@
 
             <div class="input-group mb-3 shadow">
                 <span class="input-group-text custom-border" id="inputGroup-sizing-default">Fecha:</span>
-                <input type="text" class="form-control custom-border" placeholder="00/0/0000" v-model="Today">
+                <input type="text" class="form-control custom-border" placeholder="00/0/0000" v-model="Today" v-on:keyup.enter="filtrarPorFecha">
                 <button class="btn btn-outline-success custom-border" type="button" @click="filtrarPorFecha">Buscar</button>
             </div>
 
@@ -80,11 +80,11 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><input type="number" v-model="mil" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="quinientos" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="doscientos" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="cien" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="cincuenta" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="mil" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="quinientos" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="doscientos" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="cien" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="cincuenta" class="form-control c-border" min="0"></td>
                   </tr>
                 </tbody>
             </table>
@@ -101,16 +101,16 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><input type="number" v-model="veinte" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="diez" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="cinco" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="dos" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="uno" class="form-control c-border" min="0"></td>
-                    <td><input type="number" v-model="cincuentaCentavos" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="veinte" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="diez" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="cinco" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="dos" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="uno" class="form-control c-border" min="0"></td>
+                    <td><input type="number" @input="calcularTotalEnCorte" v-model="cincuentaCentavos" class="form-control c-border" min="0"></td>
                   </tr>
                   <tr class="table-group-divider">
                     <td scope="row" colspan="4" class="fw-bold fs-4">TOTAL EN CORTE:</td>
-                    <td class="text-danger fw-bold fs-4">${{  }}</td>
+                    <td class="text-danger fw-bold fs-4">${{ totalEnCorte }}</td>
                   </tr>
                   <tr class="table-group-divider">
                     <td scope="row" colspan="4" class="fw-bold fs-4">Utilidad:</td>
@@ -118,11 +118,11 @@
                   </tr>
                   <tr class="table-group-divider">
                     <td scope="row" colspan="4" class="fw-bold fs-4">Faltante:</td>
-                    <td class="text-danger fw-bold fs-4">${{  }}</td>
+                    <td class="text-danger fw-bold fs-4">${{ calcularFaltante() }}</td>
                   </tr>
                   <tr class="table-group-divider">
                     <td scope="row" colspan="4" class="fw-bold fs-4">Sobrante:</td>
-                    <td class="text-danger fw-bold fs-4">${{  }}</td>
+                    <td class="text-danger fw-bold fs-4">${{ calcularSobrante() }}</td>
                   </tr>
                 </tbody>
             </table>
