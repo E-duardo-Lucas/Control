@@ -4,7 +4,8 @@ const app = new Vue({
         entradas: [
             {barCode:'0',nombre: 'Huevos/Blanquillos', precio:'2.5', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
             {barCode:'011',nombre:'Doritos flaming hot verdes', precio:'18', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
-            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''}
+            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
+            {barCode:'033',nombre: 'Papel higienico REGIO', precio:'28', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
         ],
         salidas: [], almacen:[], datosFiltrados: [],
         barCode: '', cambio: '',
@@ -131,10 +132,10 @@ const app = new Vue({
                     const faltante = this.calcularFaltante();
 
                     const datosParaCompartir = this.datosFiltrados.map(item => 
-                        `▪${item.nombre},${item.total},$${item.cantidad},${item.fecha}`).join('\n');
+                        `▪${item.nombre},${item.total},$${item.cantidad}`).join('\n');
                     
                     const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
-                    const mensaje = `Datos filtrados:${this.Today}\n${datosParaCompartir}\n\nTotal en Corte: ${this.totalEnCorte}\nSobrante: ${sobrante}\nFaltante: ${faltante}`;
+                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal en Corte: ${this.totalEnCorte}\nSobrante: ${sobrante}\nFaltante: ${faltante}`;
                     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
                     
                     window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña
@@ -171,7 +172,12 @@ const app = new Vue({
         calcularFaltante: function() {
             const diferencia = this.sumaTotal - this.totalEnCorte;
             return diferencia < 0 ? 0 : diferencia;
-        }       
+        },
+        deleteLocalDos: function() {
+            // Eliminar los datos de lukiControl
+            localStorage.removeItem('lukiControl2');
+            alert('LocalStorage VACÍA');
+        }
     },
     computed: {
         totalGeneral: function() {
