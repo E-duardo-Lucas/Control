@@ -132,10 +132,10 @@ const app = new Vue({
                     const faltante = this.calcularFaltante();
 
                     const datosParaCompartir = this.datosFiltrados.map(item => 
-                        `▪${item.nombre},${item.total},$${item.cantidad}`).join('\n');
+                        `▪${item.nombre},$${item.total},${item.cantidad}`).join('\n');
                     
                     const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
-                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal en Corte: ${this.totalEnCorte}\nSobrante: ${sobrante}\nFaltante: ${faltante}`;
+                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: ${this.sumaTotal}\nTotal en Corte: ${this.totalEnCorte}\nSobrante: ${sobrante}\nFaltante: ${faltante}`;
                     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
                     
                     window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña
