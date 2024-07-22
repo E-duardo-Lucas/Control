@@ -2,10 +2,10 @@ const app = new Vue({
     el: '#app',
     data:{
         entradas: [
-            {barCode:'0',nombre: 'Huevos/Blanquillos', precio:'2.5', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
-            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:'18', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
-            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
-            {barCode:'033',nombre: 'Papel higienico REGIO', precio:'28', cantidad:'1', total:'', fecha:'', stock:'', utilidad:''},
+            {barCode:'0',nombre: 'Huevos/Blanquillos', precio:'2.5', cantidad:'1', total:'', fecha:'', stock:10, utilidad:0.5},
+            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:'18', cantidad:'1', total:'', fecha:'', stock:10, utilidad:3},
+            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:'', fecha:'', stock:10, utilidad:3},
+            {barCode:'033',nombre: 'Papel higienico REGIO', precio:'28', cantidad:'1', total:'', fecha:'', stock:10, utilidad:5},
         ],
         salidas: [], almacen:[], datosFiltrados: [],
         barCode: '', cambio: '',
@@ -135,7 +135,7 @@ const app = new Vue({
                         `▪${item.nombre},$${item.total},${item.cantidad}`).join('\n');
                     
                     const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
-                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: ${this.sumaTotal}\nTotal en Corte: ${this.totalEnCorte}\nSobrante: ${sobrante}\nFaltante: ${faltante}`;
+                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: $${this.sumaTotal}.00\nTotal en Corte: $${this.totalEnCorte}.00\nSobrante: $${sobrante}.00\nFaltante: $${faltante}.00`;
                     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
                     
                     window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña
