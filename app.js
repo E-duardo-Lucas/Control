@@ -2,17 +2,17 @@ const app = new Vue({
     el: '#app',
     data:{
         entradas: [
-            {barCode:'0',nombre: 'Huevos/Blanquillos', precio:'2.5', cantidad:'1', total:'', fecha:'', stock:10, utilidad:'0.5', ganancia:''},
-            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:'18', cantidad:'1', total:'', fecha:'', stock:10, utilidad:'3', ganancia:''},
-            {barCode:'022',nombre: 'Papas', precio:'12', cantidad:'1', total:'', fecha:'', stock:10, utilidad:'3', ganancia:''},
-            {barCode:'033',nombre: 'Papel higienico REGIO', precio:'28', cantidad:'1', total:'', fecha:'', stock:10, utilidad:'5', ganancia:''},
-            {barCode:'7501125144851',nombre: 'Electrolit Uva', precio:'21', cantidad:'1', total:'', fecha:'', stock:1, utilidad:'3', ganancia:''},
-            {barCode:'7501125104688',nombre: 'Electrolit Naranja Mandarina', precio:'21', cantidad:'1', total:'', fecha:'', stock:1, utilidad:'3', ganancia:''},
-            {barCode:'7501125149221',nombre: 'Electrolit Fresa Kiwi', precio:'21', cantidad:'1', total:'', fecha:'', stock:2, utilidad:'3', ganancia:''},
-            {barCode:'7501125118562',nombre: 'Electrolit Lima Limon', precio:'21', cantidad:'1', total:'', fecha:'', stock:1, utilidad:'3', ganancia:''},
-            {barCode:'7501125104411',nombre: 'Electrolit Coco', precio:'21', cantidad:'1', total:'', fecha:'', stock:1, utilidad:'3', ganancia:''},
-            {barCode:'7501125174797',nombre: 'Electrolit Mora Azul', precio:'21', cantidad:'1', total:'', fecha:'', stock:3, utilidad:'3', ganancia:''},
-            {barCode:'7501125104268',nombre: 'Electrolit Fresa', precio:'21', cantidad:'1', total:'', fecha:'', stock:2, utilidad:'3', ganancia:''},
+            {barCode:'0',nombre: 'Huevos / Blanquillos', precio:2.5, cantidad:1, total:'', fecha:'', stock:10, utilidad:0.5, ganancia:''},
+            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:18, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:''},
+            {barCode:'022',nombre: 'Papas', precio:12, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:''},
+            {barCode:'033',nombre: 'Papel higienico REGIO', precio:28, cantidad:1, total:'', fecha:'', stock:10, utilidad:5, ganancia:''},
+            {barCode:'7501125144851',nombre: 'Electrolit Uva', precio:21, cantidad:1, total:'', fecha:'', stock:1, utilidad:3, ganancia:''},
+            {barCode:'7501125104688',nombre: 'Electrolit Naranja Mandarina', precio:21, cantidad:1, total:'', fecha:'', stock:1, utilidad:3, ganancia:''},
+            {barCode:'7501125149221',nombre: 'Electrolit Fresa Kiwi', precio:21, cantidad:1, total:'', fecha:'', stock:2, utilidad:3, ganancia:''},
+            {barCode:'7501125118562',nombre: 'Electrolit Lima Limon', precio:21, cantidad:1, total:'', fecha:'', stock:1, utilidad:3, ganancia:''},
+            {barCode:'7501125104411',nombre: 'Electrolit Coco', precio:21, cantidad:1, total:'', fecha:'', stock:1, utilidad:3, ganancia:''},
+            {barCode:'7501125174797',nombre: 'Electrolit Mora Azul', precio:21, cantidad:1, total:'', fecha:'', stock:3, utilidad:3, ganancia:''},
+            {barCode:'7501125104268',nombre: 'Electrolit Fresa', precio:21, cantidad:1, total:'', fecha:'', stock:2, utilidad:3, ganancia:''},
         ],
         salidas: [], almacen:[], datosFiltrados: [],
         barCode: '', cambio: '',
@@ -32,20 +32,21 @@ const app = new Vue({
             if (productoEncontrado) {
                 const indiceExistente = this.salidas.findIndex(item => item.barCode === productoEncontrado.barCode);                
                 if (indiceExistente !== -1) {
-                    // Si ya existe, actualiza cantidad y precio
+                    // Si ya existe, actualiza cantidad, total y ganancia
                     this.salidas[indiceExistente].cantidad++;
-                    this.salidas[indiceExistente].total = parseFloat(this.salidas[indiceExistente].cantidad) * parseFloat(this.salidas[indiceExistente].precio);
-                    this.salidas[indiceExistente].ganancia = parseFloat(this.salidas[indiceExistente].cantidad) * parseFloat(this.salidas[indiceExistente].utilidad);
+                    this.salidas[indiceExistente].total = this.salidas[indiceExistente].cantidad * parseFloat(this.salidas[indiceExistente].precio);
+                    this.salidas[indiceExistente].ganancia = this.salidas[indiceExistente].cantidad * parseFloat(this.salidas[indiceExistente].utilidad);
                 } else {
                     // Si no existe, añade el producto a salidas
                     this.salidas.push({
                         barCode: productoEncontrado.barCode,
                         nombre: productoEncontrado.nombre,
-                        precio: parseFloat(productoEncontrado.precio),
-                        cantidad: parseFloat(productoEncontrado.cantidad),
-                        total: parseFloat(productoEncontrado.precio),
+                        precio: productoEncontrado.precio,
+                        cantidad: productoEncontrado.cantidad,
+                        total: productoEncontrado.precio,
                         fecha: new Date().toLocaleDateString(),
-                        ganancia: parseFloat(productoEncontrado.utilidad)
+                        utilidad: productoEncontrado.utilidad,
+                        ganancia: productoEncontrado.utilidad
                     });
                 }
             } else {
@@ -56,7 +57,8 @@ const app = new Vue({
             this.barCode = '';
             this.focusBarcodeInput();
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
-        },        
+        },
+                
         editarLess: function(index){
             if (this.salidas[index].cantidad > 1) {
                 this.salidas[index].cantidad--;
@@ -199,7 +201,7 @@ const app = new Vue({
             return this.datosFiltrados.reduce((sum, item) => sum + parseFloat(item.total), 0);
         },
         sumaUtilidad() {
-            return this.datosFiltrados.reduce((sum, item) => sum + parseFloat(item.ganancia), 0);
+            return this.datosFiltrados.reduce((suma, item) => suma + parseFloat(item.ganancia), 0);
         },      
     },    
     mounted() {
