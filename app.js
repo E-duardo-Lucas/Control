@@ -129,6 +129,7 @@ const app = new Vue({
         },
         updateTotal: function (item) {
             item.total = item.cantidad * item.precio;
+            item.ganancia = item.cantidad * item.utilidad;
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
         filtrarPorFecha: function() {

@@ -28,6 +28,18 @@
         .btn-outline-success:active svg {
             fill: #ffffff; /* Color blanco cuando el botón es presionado */
         }
+        #hiddenDiv {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 11;
+        }
     </style>
 </head>
 <body>    
@@ -104,7 +116,15 @@
                     </tr>
                   </tr>
                 </tbody>
-              </table>
+            </table>
+
+            <div id="hiddenDiv" class="container mt-5">
+                <div class="alert alert-success">
+                  <p>Total a pagar: {{ totalGeneral }}</p>
+                  <input type="number" class="form-control form-control custom-border" placeholder="$ 0.00" v-model="cambio">
+                  <p>Cambio: {{ cambioRestante }}</p>
+                </div>
+            </div>
 
               <!-- Agregar botón flotante para agregar productos -->
             <button class="btn btn-outline-success rounded-circle shadow" @click="transferData" style="position: fixed; bottom: 90px; right: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
@@ -133,6 +153,15 @@
 
     <!-- Para el control del sitio web con VUE.js-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="app.js"></script>        
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'F1') {
+            event.preventDefault();
+            var hiddenDiv = document.getElementById('hiddenDiv');
+            hiddenDiv.style.display = 'block';
+          }
+        });
+    </script>        
 </body>
 </html>
