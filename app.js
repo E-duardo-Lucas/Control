@@ -49,6 +49,11 @@ const app = new Vue({
                         ganancia: productoEncontrado.utilidad
                     });
                 }
+
+                // Resta la cantidad vendida del stock
+                productoEncontrado.stock -= productoEncontrado.cantidad;
+                console.log(productoEncontrado.cantidad)
+
             } else {
                 console.log('Producto no encontrado');
             }
@@ -82,7 +87,8 @@ const app = new Vue({
                 this.salidas.push({
                     nombre: this.newName,
                     total: this.newCash,
-                    fecha: new Date().toLocaleDateString()
+                    fecha: new Date().toLocaleDateString(),
+                    ganancia: 0
                 });
                 localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
                 this.newName = '';
@@ -147,7 +153,7 @@ const app = new Vue({
                         `▪${item.nombre},$${item.total},${item.cantidad}`).join('\n');
                     
                     const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
-                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: $${this.sumaTotal}.00\nTotal en Corte: $${this.totalEnCorte}.00\nSobrante: $${sobrante}.00\nFaltante: $${faltante}.00`;
+                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: $${this.sumaTotal}\nTotal en Corte: $${this.totalEnCorte}\nUtilidad: $${this.sumaUtilidad}\nSobrante: $${sobrante}\nFaltante: $${faltante}`;
                     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
                     
                     window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña

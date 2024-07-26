@@ -28,18 +28,6 @@
         .btn-outline-success:active svg {
             fill: #ffffff; /* Color blanco cuando el botón es presionado */
         }
-        #hiddenDiv {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 11;
-        }
     </style>
 </head>
 <body>    
@@ -57,7 +45,7 @@
                     <tr>
                         <td colspan="5">
                             <div class="input-group input-group-lg mb-3 shadow w-100">
-                                <input type="number" class="form-control text-center" v-model="barCode" v-on:keyup.enter="addProducto" aria-describedby="inputGroup-sizing-lg" placeholder="|||l|||||||||||||l||l||||||||||||l|||||||||||||l|||l|||||||||l|||" ref="barcodeInput">
+                                <input id="inputBarCode" type="number" class="form-control text-center" v-model="barCode" v-on:keyup.enter="addProducto" aria-describedby="inputGroup-sizing-lg" placeholder="|||l|||||||||||||l||l||||||||||||l|||||||||||||l|||l|||||||||l|||" ref="barcodeInput">
                                 <button class="btn btn-outline-success" @click="addProducto" type="button">❏</button>
                             </div>
                         </td>
@@ -84,23 +72,13 @@
                   <tr  v-for="(item, index) of salidas">
                     <th scope="row">{{ item.nombre }}</th>
                     <td>{{ item.precio }}</td>
-                    <td><input type="number" v-model="item.cantidad" class="form-control" @input="updateTotal(item)" min="1"></td>
+                    <td><input id="inputCantidad" type="number" v-model="item.cantidad" class="form-control" @input="updateTotal(item)" min="1"></td>
                     <td>{{ item.total }}</td>
                     <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                            <!--
-                            <button class="btn btn-secondary d-flex justify-content-center align-items-center" @click="editarLess(index)">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z" fill="currentColor"></path></svg>
-                            </button>
-                            -->                            
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">                       
                             <button class="btn btn-danger d-flex justify-content-center align-items-center" @click="eliminar(index)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z" fill="currentColor"></path></svg>
-                            </button>
-                            <!--
-                            <button class="btn btn-secondary d-flex justify-content-center align-items-center" @click="editarMore(index)">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M3.22 10.53a.749.749 0 0 1 0-1.06l4.25-4.25a.749.749 0 0 1 1.06 0l4.25 4.25a.749.749 0 1 1-1.06 1.06L8 6.811 4.28 10.53a.749.749 0 0 1-1.06 0Z" fill="currentColor"></path></svg>
-                            </button>
-                            -->                    
+                            </button>                
                         </div>
                     </td>
                     <tr class="table-group-divider">
@@ -110,7 +88,7 @@
                     <tr class="table-group-divider">
                         <td scope="row" colspan="1" class="fw-bold fs-5">CAMBIO</td>
                         <td colspan="2">
-                            <input type="number" class="form-control form-control custom-border" placeholder="$ 0.00" v-model="cambio">
+                            <input id="inputCambio" type="number" class="form-control form-control custom-border" placeholder="$ 0.00" v-model="cambio">
                         </td>
                         <td class="text-danger fw-bold fs-5">${{ cambioRestante }}</td>
                     </tr>
@@ -118,17 +96,9 @@
                 </tbody>
             </table>
 
-            <div id="hiddenDiv" class="container mt-5">
-                <div class="alert alert-success">
-                  <p>Total a pagar: {{ totalGeneral }}</p>
-                  <input type="number" class="form-control form-control custom-border" placeholder="$ 0.00" v-model="cambio">
-                  <p>Cambio: {{ cambioRestante }}</p>
-                </div>
-            </div>
-
               <!-- Agregar botón flotante para agregar productos -->
             <button class="btn btn-outline-success rounded-circle shadow" @click="transferData" style="position: fixed; bottom: 90px; right: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path d="M1.513 1.96a1.374 1.374 0 0 1 1.499-.21l19.335 9.215a1.147 1.147 0 0 1 0 2.07L3.012 22.25a1.374 1.374 0 0 1-1.947-1.46L2.49 12 1.065 3.21a1.375 1.375 0 0 1 .448-1.25Zm2.375 10.79-1.304 8.042L21.031 12 2.584 3.208l1.304 8.042h7.362a.75.75 0 0 1 0 1.5Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"><path d="M1.513 1.96a1.374 1.374 0 0 1 1.499-.21l19.335 9.215a1.147 1.147 0 0 1 0 2.07L3.012 22.25a1.374 1.374 0 0 1-1.947-1.46L2.49 12 1.065 3.21a1.375 1.375 0 0 1 .448-1.25Zm2.375 10.79-1.304 8.042L21.031 12 2.584 3.208l1.304 8.042h7.362a.75.75 0 0 1 0 1.5Z"></path></svg>
             </button>            
         </div>
     </div>   
@@ -156,12 +126,23 @@
     <script src="app.js"></script>
     <script>
         document.addEventListener('keydown', function(event) {
-          if (event.key === 'F1') {
-            event.preventDefault();
-            var hiddenDiv = document.getElementById('hiddenDiv');
-            hiddenDiv.style.display = 'block';
-          }
+            if (event.key === '-') {
+                event.preventDefault();
+                document.getElementById('inputCambio').focus();
+            }
+            if (event.key === '*') {
+                event.preventDefault();
+                document.getElementById('inputCantidad').focus();
+            }
+            if (event.key === '/') {
+                event.preventDefault();
+                document.getElementById('inputBarCode').focus();
+            }
+            if (event.key === '+') {
+                event.preventDefault();
+                app.transferData();
+            }
         });
-    </script>        
+    </script>          
 </body>
 </html>
