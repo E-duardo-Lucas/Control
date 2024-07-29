@@ -211,7 +211,7 @@ const app = new Vue({
         ],
         salidas: [], almacen:[], datosFiltrados: [],
         barCode: '', cambio: '',
-        newName: '', newCash: '',
+        newName: '', newCash: '', newGanancia: 0,
         mil:'', quinientos:'', doscientos:'', cien:'',
         cincuenta:'', veinte:'', diez:'', cinco:'',
         dos:'', uno:'', cincuentaCentavos:'',
@@ -283,7 +283,7 @@ const app = new Vue({
                     nombre: this.newName,
                     total: this.newCash,
                     fecha: new Date().toLocaleDateString(),
-                    ganancia: 0
+                    ganancia: this.newGanancia
                 });
                 localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
                 this.newName = '';
