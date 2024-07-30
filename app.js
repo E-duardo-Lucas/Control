@@ -391,32 +391,14 @@ const app = new Vue({
             localStorage.removeItem('lukiControl2');
             alert('LocalStorage VACÍA');
         },
-        toggleFullScreen() {
-            const elem = document.documentElement;
-            if (!document.fullscreenElement) {
-              if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-                this.focusBarcodeInput();
-              } else if (elem.mozRequestFullScreen) { // Firefox
-                elem.mozRequestFullScreen();
-              } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                elem.webkitRequestFullscreen();
-              } else if (elem.msRequestFullscreen) { // IE/Edge
-                elem.msRequestFullscreen();
-              }
-            } else {
-              if (document.exitFullscreen) {
-                document.exitFullscreen();
-                this.focusBarcodeInput();
-              } else if (document.mozCancelFullScreen) { // Firefox
-                document.mozCancelFullScreen();
-              } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
-                document.webkitExitFullscreen();
-              } else if (document.msExitFullscreen) { // IE/Edge
-                document.msExitFullscreen();
-              }
-            }
-        }
+        handleFocus(event) {
+            // Deshabilitar el readonly para permitir la entrada mediante el lector de código de barras
+            event.target.removeAttribute('readonly');
+          },
+          handleBlur(event) {
+            // Rehabilitar el readonly después de la entrada del lector de código de barras
+            event.target.setAttribute('readonly', true);
+          }
     },
     computed: {
         totalGeneral: function() {
@@ -434,6 +416,7 @@ const app = new Vue({
     },    
     mounted() {
         this.focusBarcodeInput();
+        this.$refs.barcodeInput.addEventListener('blur', this.handleBlur);
     },
     created: function() {
         let datosDB = JSON.parse(localStorage.getItem('lukiControl'));
