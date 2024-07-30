@@ -10,7 +10,6 @@
     <style>
         .mb-custom {
             margin-bottom: 50%; /* Ajusta este valor según sea necesario */
-            margin-top: 20%;
         }
         .btn-round {
             border-radius: 50%;
@@ -23,26 +22,19 @@
         .btn-success {
             background-color: #00a682be; /* Color del contorno del botón */
         }
-        .btn-outline-success:active svg {
-            fill: #ffffff; /* Color blanco cuando el botón es presionado */
-        }
     </style>
 </head>
 <body>
-    
-    <!-- Barra superior fija con logo del negocio -->
-    <div class="fixed-top p-2 d-flex justify-content-center align-items-between" style="height: 65px; background-color: rgba(228, 228, 228, 0.322);">
-        <img src="portada.png" class="img-fluid" alt="CARGANDO..." width="300" height="300">
-        <img src="Contra.png" class="img-fluid" alt="CARGANDO..." width="300" height="300">
-    </div>
-
-
-
     <div class="container mb-custom">        
         <div id="app">
             <!-- div para ingresar o leer el código de barras del producto -->            
             <!-- div para agregar un producto al ticket manualmente (para los que no tienen código de barras) -->            
-            <!-- div que enlistará todos los productos que el cliente agregue a su ticket -->               
+            <!-- div que enlistará todos los productos que el cliente agregue a su ticket -->   
+            <!-- Barra superior fija con logo del negocio -->
+            <div class="mt-2 mb-2 p-2 d-flex justify-content-center align-items-between" style="height: 70px;">
+                <img src="portada.png" class="img-fluid" alt="CARGANDO..." width="150" height="150">
+                <img src="Contra.png" class="img-fluid" alt="CARGANDO..." >
+            </div>            
             <table class="table">
                 <thead>
                     <tr>
@@ -50,6 +42,13 @@
                             <div class="input-group input-group-lg mb-3 shadow w-100">
                                 <input id="inputBarCode" type="number" class="form-control text-center" v-model="barCode" v-on:keyup.enter="addProducto" aria-describedby="inputGroup-sizing-lg" placeholder="|||l|||||||||||||l||l||||||||||||l|||||||||||||l|||l|||||||||l|||" ref="barcodeInput">
                                 <button class="btn btn-outline-success" @click="addProducto" type="button">❏</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="input-group input-group-lg mb-3 shadow w-100">
+                                <input id="inputBarCode" type="number" class="form-control text-center" placeholder="2281132513">
                             </div>
                         </td>
                     </tr>
