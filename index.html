@@ -31,7 +31,7 @@
             <!-- div para agregar un producto al ticket manualmente (para los que no tienen código de barras) -->            
             <!-- div que enlistará todos los productos que el cliente agregue a su ticket -->   
             <!-- Barra superior fija con logo del negocio -->
-            <div class="mt-2 mb-2 p-2 d-flex justify-content-center align-items-between" style="height: 70px;">
+            <div class="mt-2 mb-3 p-2 d-flex justify-content-center align-items-between" style="height: 70px;">
                 <img src="portada.png" class="img-fluid" alt="CARGANDO..." width="150" height="150">
                 <img src="Contra.png" class="img-fluid" alt="CARGANDO..." >
             </div>            
@@ -39,7 +39,7 @@
                 <thead>
                     <tr>
                         <td colspan="5">
-                            <div class="input-group input-group-lg mb-3 shadow w-100">
+                            <div class="input-group input-group-lg mb-1 shadow w-100">
                                 <input id="inputBarCode" type="number" class="form-control text-center" v-model="barCode" v-on:keyup.enter="addProducto" placeholder="|||l|||||||||||||l||l||||||||||||l|||||||||||||l|||l|||||||||l|||" ref="barcodeInput">
                                 <button class="btn btn-outline-success" @click="addProducto" type="button">❏</button>
                             </div>
@@ -47,14 +47,14 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="input-group input-group-lg mb-3 shadow w-100">
+                            <div class="input-group input-group-lg mb-1 shadow w-100">
                                 <input id="inputBarCode" type="number" class="form-control text-center" v-model="numPoint" placeholder="✯ ✯ ✯ ✯ ✯">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <div class="input-group input-group-lg mb-3 shadow w-100">
+                            <div class="input-group input-group-lg mb-4 shadow w-100">
                                 <input type="text" id="inputNombre" class="form-control" v-on:keyup.enter="focusNextInput('inputPrecio')" placeholder="Nombre" v-model="newName">         
                                 <input type="number" id="inputPrecio" class="form-control" placeholder="Precio" v-model="newCash" v-on:keyup.enter="focusNextInput('inputGanancia')">
                                 <input type="number" id="inputGanancia" class="form-control" placeholder="Ganancia" v-model="newGanancia" v-on:keyup.enter="NewProduct('inputNombre')">
@@ -86,6 +86,10 @@
                     <tr class="table-group-divider">
                         <td scope="row" colspan="3" class="fw-bold fs-4">TOTAL A PAGAR</td>
                         <td class="text-danger fw-bold fs-4">${{ totalGeneral }}</td>
+                    </tr>
+                    <tr class="table-group-divider">
+                        <td scope="row" colspan="3" class="fw-bold fs-4">LUKI POINTS</td>
+                        <td class="text-danger fw-bold fs-4">${{ totalPoints }}</td>
                     </tr>
                     <tr class="table-group-divider">
                         <td scope="row" colspan="1" class="fw-bold fs-5">CAMBIO</td>
