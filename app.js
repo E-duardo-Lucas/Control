@@ -3,7 +3,7 @@ const app = new Vue({
     data:{
         entradas: [
             {barCode:'0',nombre: 'Huevos / Blanquillos', precio:2.5, cantidad:1, total:'', fecha:'', stock:10, utilidad:0.5, ganancia:''},
-            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:18, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:''},
+            {barCode:'011',nombre:'Doritos flaming hot verdes', precio:18, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:'', puntos: 1},
             {barCode:'022',nombre: 'Papas', precio:12, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:''},
             {barCode:'033',nombre: 'Papel higienico REGIO', precio:28, cantidad:1, total:'', fecha:'', stock:10, utilidad:5, ganancia:''},
             {barCode:'7501125144851',nombre: 'Electrolit Uva', precio:21, cantidad:1, total:'', fecha:'', stock:1, utilidad:3, ganancia:''},
@@ -209,13 +209,13 @@ const app = new Vue({
             {barCode:'',nombre: '', precio:21, cantidad:1, total:'', fecha:'', stock:2, utilidad:3, ganancia:''},
             {barCode:'',nombre: '', precio:21, cantidad:1, total:'', fecha:'', stock:2, utilidad:3, ganancia:''},
         ],
-        salidas: [], almacen:[], datosFiltrados: [],
-        barCode: '', cambio: '',
+        salidas: [], almacen: [], datosFiltrados: [],
+        POINTS: [], barCode: '', cambio: '', numPoint: '',
         newName: '', newCash: '', newGanancia: 0,
         mil:'', quinientos:'', doscientos:'', cien:'',
         cincuenta:'', veinte:'', diez:'', cinco:'',
         dos:'', uno:'', cincuentaCentavos:'',
-        totalEnCorte:'',
+        totalEnCorte:'', puntosNombre: '', puntosNumero: '',
         Today: new Date().toLocaleDateString()        
     },   
     methods: {
@@ -244,11 +244,16 @@ const app = new Vue({
                         ganancia: productoEncontrado.utilidad
                     });
                 }
+                let storedPoints = localStorage.getItem('LukiPoints');
+                let pointsArray = storedPoints ? JSON.parse(storedPoints) : [];
 
-                // Resta la cantidad vendida del stock
-                productoEncontrado.stock -= productoEncontrado.cantidad;
-                console.log(productoEncontrado.cantidad)
+                // Buscar si el número existe en el array de puntos
+                let numeroEncontrado = pointsArray.find(item => item.numero === this.numPoint);
 
+                if (numeroEncontrado) {
+                    numeroEncontrado.points = this.totalGeneral;
+                    localStorage.setItem('LukiPoints', JSON.stringify(pointsArray));
+                }
             } else {
                 console.log('Producto no encontrado');
             }
@@ -292,7 +297,21 @@ const app = new Vue({
             } else {
                 alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
             }
-        },    
+        },
+        AddPoints: function() {
+            if (this.puntosNombre.trim() !== '' && this.puntosNumero.trim() !== '') {
+                this.POINTS.push({
+                    nombre: this.puntosNombre,
+                    numero: this.puntosNumero,
+                    points: 0
+                });
+                localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
+                this.puntosNombre = '';
+                this.puntosNumero = '';
+            } else {
+                alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
+            }
+        },
         focusNextInput: function(nextInputId) {
             document.getElementById(nextInputId).focus();
         },
@@ -391,14 +410,6 @@ const app = new Vue({
             localStorage.removeItem('lukiControl2');
             alert('LocalStorage VACÍA');
         },
-        handleFocus(event) {
-            // Deshabilitar el readonly para permitir la entrada mediante el lector de código de barras
-            event.target.removeAttribute('readonly');
-          },
-          handleBlur(event) {
-            // Rehabilitar el readonly después de la entrada del lector de código de barras
-            event.target.setAttribute('readonly', true);
-          }
     },
     computed: {
         totalGeneral: function() {
@@ -416,7 +427,6 @@ const app = new Vue({
     },    
     mounted() {
         this.focusBarcodeInput();
-        this.$refs.barcodeInput.addEventListener('blur', this.handleBlur);
     },
     created: function() {
         let datosDB = JSON.parse(localStorage.getItem('lukiControl'));
@@ -431,6 +441,13 @@ const app = new Vue({
             this.almacen = [];
         } else {
             this.almacen = datosDB2;
+        }
+
+        let datosDB3 = JSON.parse(localStorage.getItem('LukiPoints'));
+        if (datosDB3 === null) {
+            this.POINTS = [];
+        } else {
+            this.POINTS = datosDB3;
         }
     }
     
