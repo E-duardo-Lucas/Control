@@ -40,7 +40,7 @@
                     <tr>
                         <td colspan="5">
                             <div class="input-group input-group-lg mb-3 shadow w-100">
-                                <input id="inputBarCode" type="number" class="form-control text-center" v-model="barCode" v-on:keyup.enter="addProducto" aria-describedby="inputGroup-sizing-lg" placeholder="|||l|||||||||||||l||l||||||||||||l|||||||||||||l|||l|||||||||l|||" ref="barcodeInput">
+                                <input id="inputBarCode" type="number" class="form-control text-center" v-model="barCode" v-on:keyup.enter="addProducto" placeholder="|||l|||||||||||||l||l||||||||||||l|||||||||||||l|||l|||||||||l|||" ref="barcodeInput">
                                 <button class="btn btn-outline-success" @click="addProducto" type="button">❏</button>
                             </div>
                         </td>
@@ -48,7 +48,7 @@
                     <tr>
                         <td colspan="5">
                             <div class="input-group input-group-lg mb-3 shadow w-100">
-                                <input id="inputBarCode" type="number" class="form-control text-center" placeholder="2281132513">
+                                <input id="inputBarCode" type="number" class="form-control text-center" placeholder="Agregar puntos">
                             </div>
                         </td>
                     </tr>
@@ -99,8 +99,8 @@
             </table>
 
             <!-- Agregar botón flotante para agregar productos -->
-            <button class="btn btn-success rounded-circle shadow" @click="toggleFullScreen" style="position: fixed; bottom: 175px; right: 28px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path d="M1.513 1.96a1.374 1.374 0 0 1 1.499-.21l19.335 9.215a1.147 1.147 0 0 1 0 2.07L3.012 22.25a1.374 1.374 0 0 1-1.947-1.46L2.49 12 1.065 3.21a1.375 1.375 0 0 1 .448-1.25Zm2.375 10.79-1.304 8.042L21.031 12 2.584 3.208l1.304 8.042h7.362a.75.75 0 0 1 0 1.5Z" fill="currentColor"></path></svg>
+            <button class="btn btn-success rounded-circle shadow" @click="toggleFullScreen" style="position: fixed; bottom: 175px; right: 25px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">            
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M10 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2Zm-.5-2a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V4a.5.5 0 0 0-.5-.5H10a.5.5 0 0 0-.5.5ZM6.17 4.165a.75.75 0 0 1-.335 1.006c-.228.114-.295.177-.315.201a.035.035 0 0 0-.008.016.423.423 0 0 0-.012.112v13c0 .07.008.102.012.112a.03.03 0 0 0 .008.016c.02.024.087.087.315.201a.749.749 0 1 1-.67 1.342c-.272-.136-.58-.315-.81-.598C4.1 19.259 4 18.893 4 18.5v-13c0-.393.1-.759.355-1.073.23-.283.538-.462.81-.598a.75.75 0 0 1 1.006.336ZM2.15 5.624a.75.75 0 0 1-.274 1.025c-.15.087-.257.17-.32.245C1.5 6.96 1.5 6.99 1.5 7v10c0 .01 0 .04.056.106.063.074.17.158.32.245a.75.75 0 0 1-.752 1.298C.73 18.421 0 17.907 0 17V7c0-.907.73-1.42 1.124-1.65a.75.75 0 0 1 1.025.274Z" fill="currentColor"></path></svg>
             </button> 
             <button class="btn btn-success rounded-circle shadow" @click="transferData" style="position: fixed; bottom: 90px; right: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"><path d="M1.513 1.96a1.374 1.374 0 0 1 1.499-.21l19.335 9.215a1.147 1.147 0 0 1 0 2.07L3.012 22.25a1.374 1.374 0 0 1-1.947-1.46L2.49 12 1.065 3.21a1.375 1.375 0 0 1 .448-1.25Zm2.375 10.79-1.304 8.042L21.031 12 2.584 3.208l1.304 8.042h7.362a.75.75 0 0 1 0 1.5Z" fill="currentColor"></path></svg>

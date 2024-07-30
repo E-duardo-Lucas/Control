@@ -396,6 +396,7 @@ const app = new Vue({
             if (!document.fullscreenElement) {
               if (elem.requestFullscreen) {
                 elem.requestFullscreen();
+                this.focusBarcodeInput();
               } else if (elem.mozRequestFullScreen) { // Firefox
                 elem.mozRequestFullScreen();
               } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
@@ -406,6 +407,7 @@ const app = new Vue({
             } else {
               if (document.exitFullscreen) {
                 document.exitFullscreen();
+                this.focusBarcodeInput();
               } else if (document.mozCancelFullScreen) { // Firefox
                 document.mozCancelFullScreen();
               } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
