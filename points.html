@@ -23,8 +23,8 @@
         .custom-border {
             border-color: #1a8f89; /* Azul tenue y claro */
         }
-        .c-border {
-            border-color: #588f1a; /* Azul tenue y claro */
+        .btn-success {
+            background-color: #00a682be; /* Color del contorno del botón */
         }
     </style>
 </head>
@@ -36,19 +36,15 @@
         </div>
 
         <div id="app">
-            <div class="input-group mb-3 shadow">
-                <span class="input-group-text custom-border" id="inputGroup-sizing-default">Nombre:</span>
+            <div class="input-group-lg mb-3 shadow">
                 <input type="text" class="form-control custom-border" placeholder="Irilia Lucas Roro" v-model="puntosNombre">
             </div>
-            <div class="input-group mb-3 shadow">
-                <span class="input-group-text custom-border" id="inputGroup-sizing-default">Número:</span>
+            <div class="input-group-lg mb-5 shadow">
                 <input type="text" class="form-control custom-border" placeholder="(228) 0000000" v-model="puntosNumero" v-on:keyup.enter="filtrarPorFecha">
             </div>
-            <div class="d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-success shadow" @click="AddPoints" style="width: 100px; height: 40px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0Zm2.5 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM12 9h6.375a.75.75 0 0 1 0 1.5h-4.028l.542 4.42.482 4.5a.75.75 0 1 1-1.492.16l-.41-3.83H10.53l-.41 3.83a.75.75 0 1 1-1.492-.16l.484-4.511.54-4.409H5.625a.75.75 0 0 1 0-1.5H12Z" fill="currentColor"></path></svg>
-                </button>
-            </div>
+            <button class="btn btn-success rounded-circle shadow" @click="AddPoints" style="position: fixed; bottom: 90px; right: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"><path d="M4 9.5a5 5 0 1 1 7.916 4.062 7.973 7.973 0 0 1 5.018 7.166.75.75 0 1 1-1.499.044 6.469 6.469 0 0 0-12.932 0 .75.75 0 0 1-1.499-.044 7.972 7.972 0 0 1 5.059-7.181A4.994 4.994 0 0 1 4 9.5ZM9 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm10.25-5a.75.75 0 0 1 .75.75V4h2.25a.75.75 0 0 1 0 1.5H20v2.25a.75.75 0 0 1-1.5 0V5.5h-2.25a.75.75 0 0 1 0-1.5h2.25V1.75a.75.75 0 0 1 .75-.75Z" fill="currentColor"></path></svg>
+            </button>
 
             <table class="table mt-3">
                 <thead>
