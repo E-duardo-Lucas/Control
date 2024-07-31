@@ -2,7 +2,7 @@ const app = new Vue({
     el: '#app',
     data:{
         entradas: [
-            {barCode:'0',nombre: 'Huevos / Blanquillos', precio:2.5, cantidad:1, total:'', fecha:'', stock:10, utilidad:0.5, ganancia:'', p: 1, Tp: ''},
+            {barCode:'0',nombre: 'Huevos / Blanquillos', precio:2.5, cantidad:1, total:'', fecha:'', stock:10, utilidad:0.5, ganancia:'', p: 0.1, Tp: ''},
             {barCode:'011',nombre:'Doritos flaming hot verdes', precio:18, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:'', p: 1, Tp: ''},
             {barCode:'022',nombre: 'Papas', precio:12, cantidad:1, total:'', fecha:'', stock:10, utilidad:3, ganancia:'', p: 1, Tp: ''},
             {barCode:'033',nombre: 'Papel higienico REGIO', precio:28, cantidad:1, total:'', fecha:'', stock:10, utilidad:5, ganancia:'', p: 1, Tp: ''},
@@ -247,19 +247,10 @@ const app = new Vue({
                         fecha: new Date().toLocaleDateString(),
                         utilidad: productoEncontrado.utilidad,
                         ganancia: productoEncontrado.utilidad,
+                        p: productoEncontrado.p,
                         Tp: productoEncontrado.p
                     });
-                }
-                let storedPoints = localStorage.getItem('LukiPoints');
-                let pointsArray = storedPoints ? JSON.parse(storedPoints) : [];
-
-                // Buscar si el número existe en el array de puntos
-                let numeroEncontrado = pointsArray.find(item => item.numero === this.numPoint);
-
-                if (numeroEncontrado) {
-                    numeroEncontrado.points = this.totalGeneral;
-                    localStorage.setItem('LukiPoints', JSON.stringify(pointsArray));
-                }
+                }            
             } else {
                 console.log('Producto no encontrado');
             }
@@ -267,7 +258,7 @@ const app = new Vue({
             // Limpia el campo de entrada
             this.barCode = '';
             this.focusBarcodeInput();
-            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
+            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));            
         },
                 
         editarLess: function(index){
@@ -287,6 +278,7 @@ const app = new Vue({
         eliminar: function(index){
             this.salidas.splice(index,1);
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
+            localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
         },
         NewProduct: function(nextInputId) {
             if (this.newName.trim() !== '' && this.newCash.trim() !== '') {
@@ -352,6 +344,18 @@ const app = new Vue({
             } else {
                 console.log('No hay datos en lukiControl para transferir');
             }
+
+
+            let storedPoints = localStorage.getItem('LukiPoints');
+            let pointsArray = storedPoints ? JSON.parse(storedPoints) : [];
+
+            // Buscar si el número existe en el array de puntos
+            let numeroEncontrado = pointsArray.find(item => item.numero === this.numPoint);
+
+                if (numeroEncontrado) {
+                    numeroEncontrado.points += this.totalPoints;
+                    localStorage.setItem('LukiPoints', JSON.stringify(pointsArray));
+                }
         },
         updateTotal: function (item) {
             item.total = item.cantidad * item.precio;
