@@ -38,8 +38,10 @@
             <div class="input-group input-group-lg mb-3 shadow">
                 <input type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra">
             </div>
-            <p style="font-size: 24px;">Porcentaje: {{ totalPorcen }}</p>
-            <p style="font-size: 24px;">Porcentaje: {{ sumaPorcens }}</p>
+            <p style="font-size: 24px;">Porcentaje:</p>
+            <p style="font-size: 24px;" class="text-danger">{{ totalPorcen }}</p>
+            <p style="font-size: 24px;">Precio recomendado:</p>
+            <p style="font-size: 24px;" class="text-danger">{{ sumaPorcens }}</p>
         </div>
     </div>
 
