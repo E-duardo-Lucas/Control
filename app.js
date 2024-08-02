@@ -220,7 +220,10 @@ const app = new Vue({
         cincuenta:'', veinte:'', diez:'', cinco:'',
         dos:'', uno:'', cincuentaCentavos:'',
         totalEnCorte:'', puntosNombre: '', puntosNumero: '',
-        Today: new Date().toLocaleDateString()        
+        Today: new Date().toLocaleDateString(),
+        
+        
+        precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: ''
     },   
     methods: {
         addProducto: function(){
@@ -407,7 +410,10 @@ const app = new Vue({
                                 totalCien + totalCincuenta + totalVeinte + 
                                 totalDiez + totalCinco + totalDos + 
                                 totalUno + totalCincuentaCentavos;
-        },         
+        },    
+        calcularTotalPorcentaje: function () {
+            this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);            
+        },          
         calcularSobrante: function() {
             const diferencia = this.totalEnCorte - this.sumaTotal;
             return diferencia < 0 ? 0 : diferencia;
@@ -431,6 +437,9 @@ const app = new Vue({
         },
         cambioRestante: function() {
             return parseFloat(this.cambio) - this.totalGeneral;
+        },
+        sumaPorcens: function() {
+            return parseFloat(this.totalPorcen) + parseFloat(this.precioCompra);
         },
         sumaTotal() {
             return this.datosFiltrados.reduce((sum, item) => sum + parseFloat(item.total), 0);
