@@ -39,12 +39,18 @@
     <div class="container mt-5 mb-custom d-flex justify-content-center align-items-center">
         <div id="app">
             <div class="input-group input-group-lg mb-3 shadow">
-                <input type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra">
+                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')">
+            </div>
+            <div class="input-group input-group-lg mb-3 shadow">
+                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')">
+            </div>
+            <div class="input-group input-group-lg mb-3 shadow">
+                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')">
             </div>
             <p style="font-size: 24px;">Porcentaje:</p>
-            <p style="font-size: 24px;" class="text-danger">{{ totalPorcen }}</p>
+            <p style="font-size: 24px;" class="text-danger">20% : {{ totalPorcen }}</p>
             <p style="font-size: 24px;">Precio recomendado:</p>
-            <p style="font-size: 24px;" class="text-danger">{{ sumaPorcens }}</p>
+            <p style="font-size: 24px;" class="text-danger">$ : {{ sumaPorcens }}</p>
         </div>
     </div>
 

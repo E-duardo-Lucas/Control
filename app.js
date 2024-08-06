@@ -223,7 +223,8 @@ const app = new Vue({
         Today: new Date().toLocaleDateString(),
         
         
-        precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: ''
+        precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: '',
+        CajaBulto: '', PiezasKilo: '',
     },   
     methods: {
         addProducto: function(){
@@ -412,8 +413,12 @@ const app = new Vue({
                                 totalUno + totalCincuentaCentavos;
         },    
         calcularTotalPorcentaje: function () {
-            this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);            
-        },          
+            this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);        
+        },    
+        calcularPrecioCompra: function () {
+            this.precioCompra = parseFloat(this.CajaBulto) / parseFloat(this.PiezasKilo);
+            this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);  
+        },      
         calcularSobrante: function() {
             const diferencia = this.totalEnCorte - this.sumaTotal;
             return diferencia < 0 ? 0 : diferencia;
