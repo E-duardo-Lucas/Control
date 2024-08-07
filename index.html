@@ -80,9 +80,9 @@
                 <tbody>
                   <tr  v-for="(item, index) of salidas">
                     <th scope="row">{{ item.nombre }}</th>
-                    <td>{{ item.precio }}</td>
+                    <td class="text-success">{{ item.precio }}</td>
                     <td><input id="inputCantidad" type="number" v-model="item.cantidad" class="form-control" @input="updateTotal(item)" min="1"></td>
-                    <td>{{ item.total }}</td>
+                    <td class="text-success">{{ item.total }}</td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">                       
                             <button class="btn btn-danger d-flex justify-content-center align-items-center" @click="eliminar(index)">
@@ -92,18 +92,18 @@
                     </td>
                     <tr class="table-group-divider">
                         <td scope="row" colspan="3" class="fw-bold fs-4">TOTAL A PAGAR</td>
-                        <td class="text-danger fw-bold fs-4">${{ totalGeneral }}</td>
+                        <td colspan="2" class="text-danger fw-bold fs-4">${{ totalGeneral }}</td>
                     </tr>
                     <tr class="table-group-divider">
                         <td scope="row" colspan="3" class="fw-bold fs-4">LUKI POINTS</td>
-                        <td class="text-danger fw-bold fs-4">${{ totalPoints }}</td>
+                        <td colspan="2" class="text-danger fw-bold fs-4">${{ totalPoints }}</td>
                     </tr>
                     <tr class="table-group-divider">
                         <td scope="row" colspan="1" class="fw-bold fs-5">CAMBIO</td>
                         <td colspan="2">
-                            <input id="inputCambio" type="number" class="form-control form-control custom-border" placeholder="$ 0.00" v-model="cambio">
+                            <input id="inputCambio" type="number" class="form-control form-control custom-border" placeholder="$ 0.00" v-model="cambio" style="background-color: rgba(170, 163, 163, 0.267);">
                         </td>
-                        <td class="text-danger fw-bold fs-5">${{ cambioRestante }}</td>
+                        <td colspan="2" class="text-danger fw-bold fs-5">${{ cambioRestante }}</td>
                     </tr>
                   </tr>
                 </tbody>
