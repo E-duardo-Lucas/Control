@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body>
+<body class="container.mb-custom">
     <div class="container mb-custom">        
         <div id="app">
             <!-- div para ingresar o leer el código de barras del producto -->            
@@ -112,7 +112,10 @@
             <!-- Agregar botón flotante para agregar productos -->
             <button class="btn btn-success rounded-circle shadow" @click="transferData" style="position: fixed; bottom: 90px; right: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"><path d="M1.513 1.96a1.374 1.374 0 0 1 1.499-.21l19.335 9.215a1.147 1.147 0 0 1 0 2.07L3.012 22.25a1.374 1.374 0 0 1-1.947-1.46L2.49 12 1.065 3.21a1.375 1.375 0 0 1 .448-1.25Zm2.375 10.79-1.304 8.042L21.031 12 2.584 3.208l1.304 8.042h7.362a.75.75 0 0 1 0 1.5Z" fill="currentColor"></path></svg>
-            </button>            
+            </button>
+            
+            <button onclick="openFullscreen()">Pantalla Completa</button>
+
         </div>
     </div>   
 
@@ -159,6 +162,19 @@
                 app.transferData();
             }
         });
+
+        function openFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+        }
     </script>          
 </body>
 </html>
