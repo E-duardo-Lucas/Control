@@ -200,6 +200,10 @@
       // Desplazarse hacia abajo al cargar la página para ocultar la barra de direcciones
       window.scrollTo(0, 1);
 
+      // Después de un pequeño retraso, volver a la posición inicial
+      setTimeout(function() {
+        window.scrollTo(0, 0);
+      }, 500);
     });
     </script>
 </body>
