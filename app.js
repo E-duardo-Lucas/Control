@@ -282,6 +282,9 @@ const app = new Vue({
             this.focusBarcodeInput();
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
+        clr: function(clrAction){
+            document.getElementById(clrAction).style.display = "none";
+        },
         eliminar: function(index){
             this.salidas.splice(index,1);
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
