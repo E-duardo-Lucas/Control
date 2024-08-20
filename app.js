@@ -231,14 +231,14 @@ const app = new Vue({
         cincuenta:'', veinte:'', diez:'', cinco:'',
         dos:'', uno:'', cincuentaCentavos:'',
         totalEnCorte:'', puntosNombre: '', puntosNumero: '',
-        Today: new Date().toLocaleDateString(),
+        Today: new Date().toLocaleDateString(), verduras: 29,
         
         
         precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: '',
         CajaBulto: '', PiezasKilo: '', p2: 0.25, p3: 0.3, tp2: '', tp3: ''
     },   
     methods: {
-        addProducto: function(){
+        addProducto: function(divWarning){
             // Filtra el producto basado en el barCode
             const productoEncontrado = this.entradas.find(product => product.barCode === this.barCode);
             
@@ -270,10 +270,17 @@ const app = new Vue({
                 console.log('Producto no encontrado');
             }
             
+            // Comprueba la condición antes de limpiar el campo de entrada
+            if (Number(this.barCode) === this.verduras) {
+                document.getElementById(divWarning).style.display = "flex";
+            } else {
+                document.getElementById(divWarning).style.display = "none";
+            }
+
             // Limpia el campo de entrada
             this.barCode = '';
             this.focusBarcodeInput();
-            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));            
+            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
         eliminar: function(index){
             this.salidas.splice(index,1);
