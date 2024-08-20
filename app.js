@@ -320,6 +320,18 @@ const app = new Vue({
                 console.warn('El elemento de entrada no está definido');
             }
         },
+        openFullscreen: function(){
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+        },
         transferData: function() {
             let datosDB1 = JSON.parse(localStorage.getItem('lukiControl'));
             
@@ -461,6 +473,7 @@ const app = new Vue({
     },    
     mounted() {
         this.focusBarcodeInput();
+        this.openFullscreen();
     },
     created: function() {
         let datosDB = JSON.parse(localStorage.getItem('lukiControl'));
