@@ -231,14 +231,15 @@ const app = new Vue({
         cincuenta:'', veinte:'', diez:'', cinco:'',
         dos:'', uno:'', cincuentaCentavos:'',
         totalEnCorte:'', puntosNombre: '', puntosNumero: '',
-        Today: new Date().toLocaleDateString(), verduras: 29,
+        Today: new Date().toLocaleDateString(), inpPventa: '', inpCdd: '',
+        verduras: 29, textName: '', carnes: 28, ptaje: 0.16,
         
         
         precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: '',
         CajaBulto: '', PiezasKilo: '', p2: 0.25, p3: 0.3, tp2: '', tp3: ''
     },   
     methods: {
-        addProducto: function(divWarning, idInput){
+        addProducto: function(divWarning){
             // Filtra el producto basado en el barCode
             const productoEncontrado = this.entradas.find(product => product.barCode === this.barCode);
             
@@ -273,8 +274,11 @@ const app = new Vue({
             // Comprueba la condición antes de limpiar el campo de entrada
             if (Number(this.barCode) === this.verduras) {
                 document.getElementById(divWarning).style.display = "flex";
-                document.getElementById(idInput).focus();
-                console.log(document.getElementById(idInput)); // Verifica si el input se selecciona correctamente
+                this.textName = 'Verduras';
+            }
+            if (Number(this.barCode) === this.carnes) {
+                document.getElementById(divWarning).style.display = "flex";
+                this.textName = 'Carnes';
             }
 
             // Limpia el campo de entrada
@@ -284,6 +288,24 @@ const app = new Vue({
         },
         clr: function(clrAction){
             document.getElementById(clrAction).style.display = "none";
+        },
+        NewADD: function(clrAction) {
+            if (this.inpPventa.trim() !== '' && this.inpCdd.trim() !== '') {
+                const totalP = Number(this.inpPventa) * Number(this.inpCdd);
+                const tGanancia = totalP * this.ptaje;        
+                this.salidas.push({
+                    nombre: this.textName,
+                    total: totalP,
+                    fecha: new Date().toLocaleDateString(),
+                    ganancia: tGanancia
+                });
+                localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
+                this.inpPventa = '';
+                this.inpCdd = '';
+                document.getElementById(clrAction).style.display = "none";
+            } else {
+                alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
+            }
         },
         eliminar: function(index){
             this.salidas.splice(index,1);
@@ -328,18 +350,6 @@ const app = new Vue({
                 this.$refs.barcodeInput.focus();
             } else {
                 console.warn('El elemento de entrada no está definido');
-            }
-        },
-        openFullscreen: function(){
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
             }
         },
         transferData: function() {
@@ -483,7 +493,6 @@ const app = new Vue({
     },    
     mounted() {
         this.focusBarcodeInput();
-        this.openFullscreen();
     },
     created: function() {
         let datosDB = JSON.parse(localStorage.getItem('lukiControl'));
