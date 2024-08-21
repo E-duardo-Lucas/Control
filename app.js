@@ -238,7 +238,7 @@ const app = new Vue({
         CajaBulto: '', PiezasKilo: '', p2: 0.25, p3: 0.3, tp2: '', tp3: ''
     },   
     methods: {
-        addProducto: function(divWarning){
+        addProducto: function(divWarning, idInput){
             // Filtra el producto basado en el barCode
             const productoEncontrado = this.entradas.find(product => product.barCode === this.barCode);
             
@@ -273,8 +273,8 @@ const app = new Vue({
             // Comprueba la condición antes de limpiar el campo de entrada
             if (Number(this.barCode) === this.verduras) {
                 document.getElementById(divWarning).style.display = "flex";
-            } else {
-                document.getElementById(divWarning).style.display = "none";
+                document.getElementById(idInput).focus();
+                console.log(document.getElementById(idInput)); // Verifica si el input se selecciona correctamente
             }
 
             // Limpia el campo de entrada
