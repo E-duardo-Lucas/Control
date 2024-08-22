@@ -232,7 +232,7 @@ const app = new Vue({
         dos:'', uno:'', cincuentaCentavos:'',
         totalEnCorte:'', puntosNombre: '', puntosNumero: '',
         Today: new Date().toLocaleDateString(), inpPventa: '', inpCdd: '',
-        verduras: 29, textName: '', carnes: 28, ptaje: 0.16,
+        verduras: 29, textName: '', carnes: 28, ptaje: 0.16, tGanancia: '', totalP: '',
         
         
         precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: '',
@@ -286,18 +286,21 @@ const app = new Vue({
             this.focusBarcodeInput();
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
-        clr: function(clrAction){
+        clr: function(clrAction, idIpt){
             document.getElementById(clrAction).style.display = "none";
+            document.getElementById(idIpt).focus();
         },
-        NewADD: function(clrAction) {
-            if (this.inpPventa.trim() !== '' && this.inpCdd.trim() !== '') {
-                const totalP = Number(this.inpPventa) * Number(this.inpCdd);
-                const tGanancia = totalP * this.ptaje;        
+        calcularInterfaz: function(){
+            this.totalP = parseFloat(this.inpPventa) * parseFloat(this.inpCdd);
+            this.tGanancia = this.totalP * this.ptaje; 
+        },
+        NewADD: function(clrAction, idIpt) {
+            if (this.inpPventa.trim() !== '' && this.inpCdd.trim() !== '') {                       
                 this.salidas.push({
                     nombre: this.textName,
-                    total: totalP,
+                    total: this.totalP,
                     fecha: new Date().toLocaleDateString(),
-                    ganancia: tGanancia,
+                    ganancia: this.tGanancia,
                     p: 0,
                     Tp: 0
                 });
@@ -305,10 +308,11 @@ const app = new Vue({
                 this.inpPventa = '';
                 this.inpCdd = '';
                 document.getElementById(clrAction).style.display = "none";
+                document.getElementById(idIpt).focus();
             } else {
                 alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
             }
-        },
+        },        
         eliminar: function(index){
             this.salidas.splice(index,1);
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
