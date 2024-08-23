@@ -54,7 +54,7 @@
             font-size: 15px;
         }
         #inputGanancia::placeholder {
-            font-size: 15px;
+            font-size: 14px;
         }               
     </style>
 </head>
@@ -73,25 +73,24 @@
             <div id="myDiv" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; z-index: 9999; background-color: #000000d2;">
                 <div class="d-flex flex-column justify-content-center align-items-center" style="background-color: #ffffff; width: 300px; height: 290px; border-radius: 15px; position: relative;">                    
                     <div>
-                        <p style="font-size: 30px;">{{ textName }}</p>
+                        <p style="font-size: 25px;">{{ textName }}</p>
                     </div>                    
-                    <div class="d-flex mb-3" style="gap: 10px;">
+                    <div class="d-flex mb-2" style="gap: 10px;">
                         <input @input="calcularInterfaz" v-model="inpPventa" type="number" class="form-control" style="width: 120px; height: 60px; border-color: #696565;" placeholder="Precio">
                         <input @input="calcularInterfaz" v-model="inpCdd" type="number" class="form-control" style="width: 120px; height: 60px; border-color: #696565;" placeholder="Cantidad">
                     </div>
-                    <div class="mb-5">
-                        <input type="number" class="form-control" style="width: 250px; height: 25px; border-color: #696565;" placeholder="Precio a cobrar:" v-model="totalP" disabled>
-                        <input type="number" class="form-control" style="width: 250px; height: 25px; border-color: #696565;" placeholder="Ganancia:" v-model="tGanancia" disabled>
-                        <input type="number" class="form-control" style="width: 250px; height: 25px; border-color: #696565;" placeholder="Luki Points: 0" disabled>
-                    </div>
+                    <div class="mb-5" style="color: #808080; margin-left: 0; width: 240px; height: 80px;">
+                        <p style="margin-bottom: 5px;">Precio a cobrar: {{ totalP }}</p>
+                        <p style="margin-bottom: 5px;">Ganancia: {{ tGanancia }}</p>
+                        <p style="margin-bottom: 5px;">Luki Points: 0</p>
+                    </div>                                        
                     <div class="btn-group" role="group" style="position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 10px;">
                         <button @click="clr('myDiv', 'inputBarCode')" class="btn btn-outline-secondary btn-custom" style="width: 120px; height: 50px; border: none; color:#050505; font-size: 18px;">cancelar</button>
                         <button @click="NewADD('myDiv', 'inputBarCode')" class="btn btn-outline-secondary btn-custom" style="width: 120px; height: 50px; border: none; color:#00a682; font-size: 20px;">Aceptar</button>
                     </div>
                 </div>                                        
             </div>
-            
-            
+                        
             <table class="table table-bg-primary">
                 <thead>
                     <tr>
@@ -134,8 +133,8 @@
                     <td><input id="inputCantidad" type="number" v-model="item.cantidad" class="form-control" @input="updateTotal(item)" min="1"></td>
                     <td class="text-success">{{ item.total }}</td>
                     <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">                       
-                            <button class="btn btn-danger d-flex justify-content-center align-items-center" @click="eliminar(index)">
+                        <div class="btn-group btn-group-sm" role="group">                       
+                            <button class="btn btn-danger d-flex justify-content-center align-items-center" @click="eliminar(index, 'inputBarCode')">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z" fill="currentColor"></path></svg>
                             </button>                
                         </div>

@@ -313,10 +313,26 @@ const app = new Vue({
                 alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
             }
         },        
-        eliminar: function(index){
+        eliminar: function(index, idIpt){
             this.salidas.splice(index,1);
-            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
+            localStorage.setItem('lukiControl', JSON.stringify(this.salidas));            
+            document.getElementById(idIpt).focus();
+        },
+        handleSelectChange(event, index) {
+            const selectedValue = event.target.value;            
+            if (selectedValue === '1') {
+              this.eliminarPerson(index);
+            } else if (selectedValue === '2') {
+              this.editarPerson(index);
+            }
+        },         
+        eliminarPerson(index) {
+            this.POINTS.splice(index,1);
             localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
+        },  
+        editarPerson(index) {
+            // Lógica para editar
+            console.log('Editar seleccionado');
         },
         NewProduct: function(nextInputId) {
             if (this.newName.trim() !== '' && this.newCash.trim() !== '') {

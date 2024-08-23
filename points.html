@@ -61,6 +61,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Número</th>
                     <th scope="col">POINTS</th>
+                    <th scope="col">...</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,13 @@
                     <td scope="row">{{ item.nombre }}</td>
                     <td>{{ item.numero }}</td>
                     <td>{{ item.points }}</td>
+                    <td>
+                        <select class="form-select" @change="handleSelectChange($event, index)">
+                            <option selected>...</option>
+                            <option value="1">Eliminar</option>
+                            <option value="2">Editar</option>                          
+                          </select>
+                    </td>
                     <tr class="table-group-divider">
                     </tr>
                   </tr>
