@@ -52,19 +52,39 @@
             </div>
             <div class="input-group input-group-lg mb-3 shadow">
                 <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')">
-            </div>
+            </div>            
+            <table class="table mt-3">
+                <thead>
+                  <tr class="table-success">
+                    <th scope="col">%</th>
+                    <th scope="col">Porcentaje</th>
+                    <th scope="col">Precio recomendado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">20</td>
+                    <td>{{ totalPorcen }}</td>
+                    <td>$ {{ sumaP1 }}</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">25</td>
+                    <td>{{ tp2 }}</td>
+                    <td>$ {{ sumaP2 }}</td>
+                  </tr>
+                  <tr>
+                    <td scope="row">30</td>
+                    <td>{{ tp3 }}</td>
+                    <td>$ {{ sumaP3 }}</td>
+                  </tr>
+                </tbody>
+            </table>
+
             <p style="font-size: 24px;">Porcentaje:</p>
             <p style="font-size: 24px;" class="text-danger">20% : {{ totalPorcen }}</p>
             <p style="font-size: 24px;">Precio recomendado:</p>
             <p style="font-size: 24px;" class="text-danger">$ : {{ sumaP1 }}</p>
-            <p style="font-size: 24px;">Porcentaje:</p>
-            <p style="font-size: 24px;" class="text-danger">25% : {{ tp2 }}</p>
-            <p style="font-size: 24px;">Precio recomendado:</p>
-            <p style="font-size: 24px;" class="text-danger">$ : {{ sumaP2 }}</p>
-            <p style="font-size: 24px;">Porcentaje:</p>
-            <p style="font-size: 24px;" class="text-danger">30% : {{ tp3 }}</p>
-            <p style="font-size: 24px;">Precio recomendado:</p>
-            <p style="font-size: 24px;" class="text-danger">$ : {{ sumaP3 }}</p>
+            
         </div>
     </div>
 
