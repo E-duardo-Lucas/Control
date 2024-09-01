@@ -53,7 +53,7 @@
             <div class="input-group input-group-lg mb-3 shadow">
                 <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')">
             </div>            
-            <table class="table mt-3">
+            <table class="table mt-5">
                 <thead>
                   <tr class="table-success">
                     <th scope="col">%</th>
@@ -79,11 +79,17 @@
                   </tr>
                 </tbody>
             </table>
-
-            <p style="font-size: 24px;">Porcentaje:</p>
-            <p style="font-size: 24px;" class="text-danger">20% : {{ totalPorcen }}</p>
-            <p style="font-size: 24px;">Precio recomendado:</p>
-            <p style="font-size: 24px;" class="text-danger">$ : {{ sumaP1 }}</p>
+            <p class="mt-5 text-success" style="font-size: 30px;">CALCULADORA</p>
+            <div class="input-group input-group-lg">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Porcentaje:</span>
+                <input type="number" v-model="p4" class="form-control" @input="calcularTotalPorcentaje">
+                <span class="input-group-text">{{ tp4 }}</span>
+            </div>
+            <div class="input-group input-group-lg">
+                <p class="input-group-text" style="font-size: 21px;">Precio recomendado:</p>
+                <p class="input-group-text text-danger" style="font-size: 24px;">$ : {{ sumaP4 }}</p>
+            </div>
+            
             
         </div>
     </div>

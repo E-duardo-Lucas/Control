@@ -235,8 +235,8 @@ const app = new Vue({
         verduras: 29, textName: '', carnes: 28, ptaje: 0.16, tGanancia: '', totalP: '',
         
         
-        precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: '',
-        CajaBulto: '', PiezasKilo: '', p2: 0.25, p3: 0.3, tp2: '', tp3: ''
+        precioCompra: '', porcentaje: 0.2, totalPorcen: '', totalSum: '', CajaBulto: '',
+        PiezasKilo: '', p2: 0.25, p3: 0.3, tp2: '', tp3: '', p4: '', tp4: ''
     },   
     methods: {
         addProducto: function(divWarning){
@@ -469,12 +469,14 @@ const app = new Vue({
             this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);
             this.tp2 = parseFloat(this.precioCompra) * parseFloat(this.p2);    
             this.tp3 = parseFloat(this.precioCompra) * parseFloat(this.p3);
+            const calculo = parseFloat(this.p4) / 100;
+            this.tp4 = parseFloat((parseFloat(this.precioCompra) * calculo).toFixed(2));
         },
         calcularPrecioCompra: function () {
             this.precioCompra = parseFloat(this.CajaBulto) / parseFloat(this.PiezasKilo);
             this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);  
             this.tp2 = parseFloat(this.precioCompra) * parseFloat(this.p2);  
-            this.tp3 = parseFloat(this.precioCompra) * parseFloat(this.p3);  
+            this.tp3 = parseFloat(this.precioCompra) * parseFloat(this.p3);
         },      
         calcularSobrante: function() {
             const diferencia = this.totalEnCorte - this.sumaTotal;
@@ -507,13 +509,16 @@ const app = new Vue({
             return this.datosFiltrados.reduce((suma, item) => suma + parseFloat(item.ganancia), 0);
         },  
         sumaP1: function() {
-            return parseFloat(this.totalPorcen) + parseFloat(this.precioCompra);
+            return parseFloat((parseFloat(this.totalPorcen) + parseFloat(this.precioCompra)).toFixed(2));
         },
         sumaP2: function() {
-            return parseFloat(this.tp2) + parseFloat(this.precioCompra);
+            return parseFloat((parseFloat(this.tp2) + parseFloat(this.precioCompra)).toFixed(2));
         },
         sumaP3: function() {
-            return parseFloat(this.tp3) + parseFloat(this.precioCompra);
+            return parseFloat((parseFloat(this.tp3) + parseFloat(this.precioCompra)).toFixed(2));
+        },
+        sumaP4: function() {
+            return parseFloat((parseFloat(this.tp4) + parseFloat(this.precioCompra)).toFixed(2));
         }, 
     },    
     mounted() {
