@@ -294,8 +294,8 @@ const app = new Vue({
             document.getElementById(clrAction).style.display = "none";
         },
         calcularInterfaz: function(){
-            this.totalP = parseFloat(this.inpPventa) * parseFloat(this.inpCdd);
-            this.tGanancia = this.totalP * this.ptaje; 
+            this.totalP = parseFloat((parseFloat(this.inpPventa) * parseFloat(this.inpCdd)).toFixed(2));
+            this.tGanancia = parseFloat((this.totalP * this.ptaje).toFixed(2));
         },
         NewADD: function(clrAction, idIpt) {
             if (this.inpPventa.trim() !== '' && this.inpCdd.trim() !== '') {                       
@@ -443,9 +443,9 @@ const app = new Vue({
                 }
         },
         updateTotal: function (item) {
-            item.total = item.cantidad * item.precio;
-            item.ganancia = item.cantidad * item.utilidad;
-            item.Tp = item.cantidad * item.p;
+            item.total = parseFloat((item.cantidad * item.precio).toFixed(2));
+            item.ganancia = parseFloat((item.cantidad * item.utilidad).toFixed(2));
+            item.Tp = parseFloat((item.cantidad * item.p).toFixed(2));
 
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
@@ -523,7 +523,7 @@ const app = new Vue({
     },
     computed: {
         totalGeneral: function() {
-            return this.salidas.reduce((total, item) => total + parseFloat(item.total), 0);
+            return parseFloat(this.salidas.reduce((total, item) => total + parseFloat(item.total), 0).toFixed(2));
         },
         totalPoints: function() {
             return this.salidas.reduce((Tp, item) => Tp + parseFloat(item.Tp), 0);
