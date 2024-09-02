@@ -230,7 +230,7 @@ const app = new Vue({
         mil:'', quinientos:'', doscientos:'', cien:'',
         cincuenta:'', veinte:'', diez:'', cinco:'',
         dos:'', uno:'', cincuentaCentavos:'', newPointsName: '', newPointsNumber: '',
-        totalEnCorte:'', puntosNombre: '', puntosNumero: '', Runo: '', Rdos: '',
+        totalEnCorte:'', puntosNombre: '', puntosNumero: '', Runo: '', Rdos: '', Rindex: '',
         Today: new Date().toLocaleDateString(), inpPventa: '', inpCdd: '',
         verduras: 29, textName: '', carnes: 28, ptaje: 0.16, tGanancia: '', totalP: '',
         
@@ -286,9 +286,12 @@ const app = new Vue({
             this.focusBarcodeInput();
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
-        clr: function(clrAction, idIpt){
+        clr: function(clrAction, idIpt) {
             document.getElementById(clrAction).style.display = "none";
             document.getElementById(idIpt).focus();
+        },
+        clrTwo: function(clrAction) {
+            document.getElementById(clrAction).style.display = "none";
         },
         calcularInterfaz: function(){
             this.totalP = parseFloat(this.inpPventa) * parseFloat(this.inpCdd);
@@ -325,7 +328,7 @@ const app = new Vue({
             if (selectedValue === '1') {
               this.eliminarPerson(index);
             } else if (selectedValue === '2') {
-              this.editarPerson(divWarning, uno, dos);              
+              this.editarPerson(index, divWarning, uno, dos);              
             } else if (selectedValue === '3') {
 
             }
@@ -336,20 +339,27 @@ const app = new Vue({
             this.POINTS.splice(index,1);
             localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
         },  
-        editarPerson(divWarning, uno, dos) {
+        editarPerson(index, divWarning, uno, dos) {
             document.getElementById(divWarning).style.display = "flex";
             this.Runo = uno;
-            this.Rdos = dos;            
+            this.Rdos = dos;
+            this.Rindex = index;            
         },
-        editarPoints(uno, dos) {
+        editarPoints: function(divWarning) {
             if (this.newPointsName.trim() !== '' && this.newPointsNumber.trim() !== '') {
-                uno = this.newPointsName;
-                dos = this.newPointsNumber;
+                // Encontrar el objeto a editar por su índice
+                this.POINTS[this.Rindex].nombre = this.newPointsName;
+                this.POINTS[this.Rindex].numero = this.newPointsNumber;
+    
+                // Guardar la lista actualizada en localStorage
                 localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
+    
+                // Limpiar los campos de edición
                 this.newPointsName = '';
                 this.newPointsNumber = '';
+                document.getElementById(divWarning).style.display = "none";
             } else {
-                alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
+                alert('Por favor, complete todos los campos antes de guardar los cambios.');
             }
         },
         NewProduct: function(nextInputId) {
