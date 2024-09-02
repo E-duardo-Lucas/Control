@@ -229,8 +229,8 @@ const app = new Vue({
         newName: '', newCash: '', newGanancia: '', newPorcen: 0.16,
         mil:'', quinientos:'', doscientos:'', cien:'',
         cincuenta:'', veinte:'', diez:'', cinco:'',
-        dos:'', uno:'', cincuentaCentavos:'',
-        totalEnCorte:'', puntosNombre: '', puntosNumero: '',
+        dos:'', uno:'', cincuentaCentavos:'', newPointsName: '', newPointsNumber: '',
+        totalEnCorte:'', puntosNombre: '', puntosNumero: '', Runo: '', Rdos: '',
         Today: new Date().toLocaleDateString(), inpPventa: '', inpCdd: '',
         verduras: 29, textName: '', carnes: 28, ptaje: 0.16, tGanancia: '', totalP: '',
         
@@ -274,11 +274,11 @@ const app = new Vue({
             // Comprueba la condición antes de limpiar el campo de entrada
             if (Number(this.barCode) === this.verduras) {
                 document.getElementById(divWarning).style.display = "flex";
-                this.textName = 'Verduras';
+                this.textName = 'Frutas y Verduras';
             }
             if (Number(this.barCode) === this.carnes) {
                 document.getElementById(divWarning).style.display = "flex";
-                this.textName = 'Carnes';
+                this.textName = 'Carnes y Quesos';
             }
 
             // Limpia el campo de entrada
@@ -299,6 +299,8 @@ const app = new Vue({
                 this.salidas.push({
                     nombre: this.textName,
                     total: this.totalP,
+                    cantidad: this.inpCdd,
+                    precio: this.inpPventa,
                     fecha: new Date().toLocaleDateString(),
                     ganancia: this.tGanancia,
                     p: 0,
@@ -318,21 +320,37 @@ const app = new Vue({
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));            
             document.getElementById(idIpt).focus();
         },
-        handleSelectChange(event, index) {
+        handleSelectChange(event, index, divWarning, uno, dos) {
             const selectedValue = event.target.value;            
             if (selectedValue === '1') {
               this.eliminarPerson(index);
             } else if (selectedValue === '2') {
-              this.editarPerson(index);
+              this.editarPerson(divWarning, uno, dos);              
+            } else if (selectedValue === '3') {
+
             }
+            // Limpiar la selección
+            event.target.value = '♞'; // O al valor predeterminado que desees
         },         
         eliminarPerson(index) {
             this.POINTS.splice(index,1);
             localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
         },  
-        editarPerson(index) {
-            // Lógica para editar
-            console.log('Editar seleccionado');
+        editarPerson(divWarning, uno, dos) {
+            document.getElementById(divWarning).style.display = "flex";
+            this.Runo = uno;
+            this.Rdos = dos;            
+        },
+        editarPoints(uno, dos) {
+            if (this.newPointsName.trim() !== '' && this.newPointsNumber.trim() !== '') {
+                uno = this.newPointsName;
+                dos = this.newPointsNumber;
+                localStorage.setItem('LukiPoints', JSON.stringify(this.POINTS));
+                this.newPointsName = '';
+                this.newPointsNumber = '';
+            } else {
+                alert('Por favor, complete todos los campos antes de agregar un nuevo producto.');
+            }
         },
         NewProduct: function(nextInputId) {
             if (this.newName.trim() !== '' && this.newCash.trim() !== '') {
@@ -418,6 +436,7 @@ const app = new Vue({
             item.total = item.cantidad * item.precio;
             item.ganancia = item.cantidad * item.utilidad;
             item.Tp = item.cantidad * item.p;
+
             localStorage.setItem('lukiControl', JSON.stringify(this.salidas));
         },
         filtrarPorFecha: function() {
