@@ -46,11 +46,10 @@
         <div id="app">
 
             <div id="myDiv" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; z-index: 9999; background-color: #000000d2;">
-                <div class="d-flex flex-column justify-content-center align-items-center" style="background-color: #ffffff; width: 300px; height: 300px; border-radius: 15px; position: relative;">                    
-                    <div class="d-flex flex-column mb-3" style="gap: 10px;">
+                <div class="d-flex flex-column justify-content-center align-items-center" style="background-color: #ffffff; width: 300px; height: 302px; border-radius: 15px; position: relative;">                    
+                    <div class="d-flex flex-column mb-4" style="gap: 10px;">
                         <input v-model="newPointsName" type="text" class="form-control" style="width: 260px; height: 60px; border: none; border-bottom: 2px solid #696565;" placeholder="Luki Store Name">
                         <input v-model="newPointsNumber" type="number" class="form-control" style="width: 260px; height: 60px; border: none; border-bottom: 2px solid #696565;" placeholder="#010101010">
-
                     </div>                                    
                     <div class="mb-4" style="color: #808080; margin-left: 0; width: 240px; height: 80px; font-size: 18px;">
                         <p style="margin-bottom: 5px;">➺ {{ Runo }}</p>
@@ -67,7 +66,7 @@
                 <input type="text" class="form-control custom-border" placeholder="Luki Store Name" v-model="puntosNombre">
             </div>
             <div class="input-group-lg mb-5 shadow">
-                <input type="text" class="form-control custom-border" placeholder="#010101010" v-model="puntosNumero" v-on:keyup.enter="filtrarPorFecha">
+                <input type="number" class="form-control custom-border" placeholder="#010101010" v-model="puntosNumero" v-on:keyup.enter="filtrarPorFecha">
             </div>
             <button class="btn btn-success rounded-circle shadow" @click="AddPoints" style="position: fixed; bottom: 90px; right: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"><path d="M4 9.5a5 5 0 1 1 7.916 4.062 7.973 7.973 0 0 1 5.018 7.166.75.75 0 1 1-1.499.044 6.469 6.469 0 0 0-12.932 0 .75.75 0 0 1-1.499-.044 7.972 7.972 0 0 1 5.059-7.181A4.994 4.994 0 0 1 4 9.5ZM9 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm10.25-5a.75.75 0 0 1 .75.75V4h2.25a.75.75 0 0 1 0 1.5H20v2.25a.75.75 0 0 1-1.5 0V5.5h-2.25a.75.75 0 0 1 0-1.5h2.25V1.75a.75.75 0 0 1 .75-.75Z" fill="currentColor"></path></svg>
