@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#00a682"> <!-- Cambia el color a lo que prefieras -->
     <title>CONTROL</title>
@@ -44,16 +43,16 @@
     </div>
     <div class="container mt-5 mb-custom d-flex justify-content-center align-items-center">
         <div id="app">
-            <div class="input-group input-group-lg mb-3 shadow">
-                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')">
+            <div class="input-group input-group-lg mb-3">
+                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
             </div>
-            <div class="input-group input-group-lg mb-3 shadow">
-                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')">
+            <div class="input-group input-group-lg mb-3">
+                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
             </div>
-            <div class="input-group input-group-lg mb-3 shadow">
-                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')">
+            <div class="input-group input-group-lg mb-3">
+                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
             </div>            
-            <table class="table mt-5">
+            <table class="table mt-4">
                 <thead>
                   <tr class="table-success">
                     <th scope="col">%</th>
@@ -79,15 +78,16 @@
                   </tr>
                 </tbody>
             </table>
-            <p class="mt-5 text-success" style="font-size: 30px;">CALCULADORA</p>
+            <p class="mt-4 text-success" style="font-size: 30px;">CALCULADORA</p>
             <div class="input-group input-group-lg">
-                <span class="input-group-text" id="inputGroup-sizing-lg">Porcentaje:</span>
-                <input type="number" v-model="p4" class="form-control" @input="calcularTotalPorcentaje">
-                <span class="input-group-text">{{ tp4 }}</span>
+                <span class="input-group-text" id="inputGroup-sizing-lg" style="border: none;">Porcentaje:</span>
+                <input type="number" v-model="p4" class="form-control" @input="calcularTotalPorcentaje" style="border: none;" placeholder="000">
+                <span class="input-group-text" style="border: none; background-color: #ffffff00;">% = </span>
+                <span class="input-group-text" style="border: none; background-color: #ffffff00;">{{ tp4 }}</span>
             </div>
             <div class="input-group input-group-lg">
-                <p class="input-group-text" style="font-size: 21px;">Precio recomendado:</p>
-                <p class="input-group-text text-danger" style="font-size: 24px;">$ : {{ sumaP4 }}</p>
+                <p class="input-group-text" style="font-size: 20px; border: none;">Precio recomendado:</p>
+                <p class="input-group-text text-danger" style="width: 180px;font-size: 24px; border: none; background-color: #ffffff00;">$ : {{ sumaP4 }}</p>
             </div>
             
             
