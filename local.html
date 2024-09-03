@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener Ubicación del Usuario</title>
+</head>
+<body>
+
+<button onclick="getLocation()">Obtener Ubicación para Calcular Envío</button>
+
+<p id="status"></p>
+<p id="location"></p>
+
+<script>
+function getLocation() {
+    // Verificar si el navegador soporta la geolocalización
+    if (navigator.geolocation) {
+        document.getElementById("status").innerHTML = "Obteniendo ubicación...";
+        
+        // Intentar obtener la ubicación
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        document.getElementById("status").innerHTML = "La geolocalización no es soportada por este navegador.";
+    }
+}
+
+function showPosition(position) {
+    // Mostrar la latitud y longitud
+    document.getElementById("status").innerHTML = "Ubicación obtenida con éxito.";
+    document.getElementById("location").innerHTML = "Latitud: " + position.coords.latitude + 
+    "<br>Longitud: " + position.coords.longitude;
+    
+    // Aquí puedes usar las coordenadas para calcular el costo de envío
+    // let cost = calculateShipping(position.coords.latitude, position.coords.longitude);
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            document.getElementById("status").innerHTML = "Usuario denegó el permiso para acceder a la ubicación.";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            document.getElementById("status").innerHTML = "La información de la ubicación no está disponible.";
+            break;
+        case error.TIMEOUT:
+            document.getElementById("status").innerHTML = "El tiempo de solicitud de ubicación ha expirado.";
+            break;
+        case error.UNKNOWN_ERROR:
+            document.getElementById("status").innerHTML = "Ocurrió un error desconocido.";
+            break;
+    }
+}
+
+// Función para calcular el costo de envío (ejemplo básico)
+/*
+function calculateShipping(latitude, longitude) {
+    // Lógica para calcular el costo basado en la ubicación
+    // Por ejemplo, podrías usar la distancia entre la ubicación del usuario y el almacén.
+    // Esto es solo un ejemplo y deberías personalizarlo según tus necesidades.
+
+    return calculatedCost;
+}
+*/
+</script>
+
+</body>
+</html>
