@@ -42,10 +42,10 @@
 
         <div id="app">
 
-            <div class="input-group mt-4 mb-5">
-                <span class="input-group-text custom-border" id="inputGroup-sizing-default" style="width: 70px; height: 80px; border: none; border-bottom: 2px solid #696565; border-top: 2px solid #696565; background-color: #ffffff00;">Fecha:</span>
-                <input type="text" class="form-control custom-border" placeholder="00/0/0000" v-model="Today" v-on:keyup.enter="filtrarPorFecha" style="border: none; border-bottom: 2px solid #696565; border-top: 2px solid #696565; font-size: 20px;">
-                <button class="btn btn-outline-success custom-border" type="button" @click="filtrarPorFecha" style="width: 100px; height: 80px; border: none; border-bottom: 2px solid #696565; border-top: 2px solid #696565;">Buscar</button>
+            <div class="input-group mt-2 mb-3">
+                <span class="input-group-text custom-border" id="inputGroup-sizing-default" style="width: 70px; height: 80px; border: none; background-color: #ffffff00;">Fecha:</span>
+                <input type="text" class="form-control custom-border" placeholder="00/0/0000" v-model="Today" v-on:keyup.enter="filtrarPorFecha" style="border: none; font-size: 20px;">
+                <button class="btn btn-outline-success custom-border" type="button" @click="filtrarPorFecha" style="width: 100px; height: 80px; border: none;">Buscar</button>
             </div>
 
             <table class="table">
@@ -115,19 +115,19 @@
                     <td><input type="number" @input="calcularTotalEnCorte" v-model="uno" class="form-control c-border" min="0" style="background-color: rgba(170, 163, 163, 0.267);"></td>
                     <td><input type="number" @input="calcularTotalEnCorte" v-model="cincuentaCentavos" class="form-control c-border" min="0" style="background-color: rgba(170, 163, 163, 0.267);"></td>
                   </tr>
-                  <tr class="table-group-divider">
+                  <tr>
                     <td scope="row" colspan="4" class="fw-bold fs-4">TOTAL EN CORTE:</td>
                     <td class="text-danger fw-bold fs-4">${{ totalEnCorte }}</td>
                   </tr>
-                  <tr class="table-group-divider">
+                  <tr>
                     <td scope="row" colspan="4" class="fw-bold fs-4">Utilidad:</td>
                     <td class="text-danger fw-bold fs-4">${{ sumaUtilidad }}</td>
                   </tr>
-                  <tr class="table-group-divider">
+                  <tr>
                     <td scope="row" colspan="4" class="fw-bold fs-4">Faltante:</td>
                     <td class="text-danger fw-bold fs-4">${{ calcularFaltante() }}</td>
                   </tr>
-                  <tr class="table-group-divider">
+                  <tr>
                     <td scope="row" colspan="4" class="fw-bold fs-4">Sobrante:</td>
                     <td class="text-danger fw-bold fs-4">${{ calcularSobrante() }}</td>
                   </tr>
