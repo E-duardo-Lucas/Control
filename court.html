@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#00a682"> <!-- Cambia el color a lo que prefieras -->
     <title>CONTROL</title>
@@ -36,17 +35,17 @@
 </head>
 <body>    
     <div class="container mt-2 mb-custom">
-        <div class="mb-2 p-2 d-flex justify-content-center align-items-between" style="height: 70px;">
+        <div class="p-2 d-flex justify-content-center align-items-between" style="height: 70px;">
           <img src="portada.png" class="img-fluid" alt="CARGANDO..." width="150" height="150">
           <img src="Contra.png" class="img-fluid" alt="CARGANDO..." >
         </div> 
 
         <div id="app">
 
-            <div class="input-group mb-3 shadow">
-                <span class="input-group-text custom-border" id="inputGroup-sizing-default">Fecha:</span>
-                <input type="text" class="form-control custom-border" placeholder="00/0/0000" v-model="Today" v-on:keyup.enter="filtrarPorFecha">
-                <button class="btn btn-outline-success custom-border" type="button" @click="filtrarPorFecha">Buscar</button>
+            <div class="input-group mt-4 mb-5">
+                <span class="input-group-text custom-border" id="inputGroup-sizing-default" style="width: 70px; height: 80px; border: none; border-bottom: 2px solid #696565; border-top: 2px solid #696565; background-color: #ffffff00;">Fecha:</span>
+                <input type="text" class="form-control custom-border" placeholder="00/0/0000" v-model="Today" v-on:keyup.enter="filtrarPorFecha" style="border: none; border-bottom: 2px solid #696565; border-top: 2px solid #696565; font-size: 20px;">
+                <button class="btn btn-outline-success custom-border" type="button" @click="filtrarPorFecha" style="width: 100px; height: 80px; border: none; border-bottom: 2px solid #696565; border-top: 2px solid #696565;">Buscar</button>
             </div>
 
             <table class="table">
