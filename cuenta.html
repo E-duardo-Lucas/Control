@@ -44,13 +44,13 @@
     <div class="container mt-3 mb-custom d-flex justify-content-center align-items-center">
         <div id="app">
             <div class="input-group input-group-lg mb-3">
-                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')" style="height: 60px; border: none; border-top: 2px solid #696565; border-left: 2px solid #696565; border-right: 2px solid #696565;">
+                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')" style="height: 60px; border: none; border-top: 2px solid #696565;">
             </div>
             <div class="input-group input-group-lg mb-3">
-                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')" style="height: 60px; border: none; border-left: 2px solid #696565; border-right: 2px solid #696565;">
+                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')" style="height: 60px; border: none;">
             </div>
             <div class="input-group input-group-lg mb-3">
-                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')" style="height: 60px; border: none; border-bottom: 2px solid #696565; border-left: 2px solid #696565; border-right: 2px solid #696565;">
+                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
             </div>            
             <table class="table mt-4">
                 <thead>

@@ -459,12 +459,17 @@ const app = new Vue({
                     this.calcularTotalEnCorte();
                     const sobrante = this.calcularSobrante();
                     const faltante = this.calcularFaltante();
-
+        
                     const datosParaCompartir = this.datosFiltrados.map(item => 
                         `▪${item.nombre},$${item.total},${item.cantidad}`).join('\n');
                     
                     const numeroDeTelefono = '2283571522'; // Reemplaza con el número de teléfono del contacto
-                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: $${this.sumaTotal}\nTotal en Corte: $${this.totalEnCorte}\nUtilidad: $${this.sumaUtilidad}\nSobrante: $${sobrante}\nFaltante: $${faltante}`;
+                    const coordenadas = {
+                        lat: 19.557616787139978,
+                        lng: -96.97592499922268
+                    };
+                    const enlaceGoogleMaps = `https://www.google.com/maps?q=${coordenadas.lat},${coordenadas.lng}`;
+                    const mensaje = `Datos filtrados: ${this.Today}\n\n${datosParaCompartir}\n\nTotal De Venta: $${this.sumaTotal}\nTotal en Corte: $${this.totalEnCorte}\nUtilidad: $${this.sumaUtilidad}\nSobrante: $${sobrante}\nFaltante: $${faltante}\n\nUbicación: ${enlaceGoogleMaps}`;
                     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroDeTelefono}&text=${encodeURIComponent(mensaje)}`;
                     
                     window.open(urlWhatsApp, '_blank'); // Abre el enlace en una nueva pestaña
@@ -475,7 +480,7 @@ const app = new Vue({
             } else {
                 console.log('La API Web de Share no está disponible en este navegador');
             }
-        },
+        },        
         calcularTotalEnCorte: function () {
             const totalMil = this.mil * 1000;
             const totalQuinientos = this.quinientos * 500;
