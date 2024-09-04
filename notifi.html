@@ -32,10 +32,12 @@
 
     // Función para mostrar la notificación cuando el usuario hace clic
     function showNotification() {
+        alert(Notification.permission); // Verificar el estado del permiso
+
         if (Notification.permission === 'granted') {
             const notification = new Notification('¡Notificación Activa!', {
                 body: 'Gracias por hacer clic en el botón.',
-                icon: 'IcoLogo.ico' // Reemplaza con la URL de tu ícono
+                icon: 'IcoLogo.ico'
             });
 
             alert('Notificación');
@@ -52,6 +54,7 @@
             alert('No se pueden mostrar notificaciones sin permiso.');
         }
     }
+
 </script>
 
 </body>
