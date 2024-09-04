@@ -41,16 +41,16 @@
         <img src="portada.png" class="img-fluid" alt="CARGANDO..." width="150" height="150">
         <img src="Contra.png" class="img-fluid" alt="CARGANDO..." >
     </div>
-    <div class="container mt-5 mb-custom d-flex justify-content-center align-items-center">
+    <div class="container mt-3 mb-custom d-flex justify-content-center align-items-center">
         <div id="app">
             <div class="input-group input-group-lg mb-3">
-                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
+                <input id="inputCajas" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Precio caja / bulto" v-model="CajaBulto" v-on:keyup.enter="focusNextInput('inputPzs')" style="height: 60px; border: none; border-top: 2px solid #696565; border-left: 2px solid #696565; border-right: 2px solid #696565;">
             </div>
             <div class="input-group input-group-lg mb-3">
-                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
+                <input id="inputPzs" type="number" @input="calcularPrecioCompra" class="form-control custom-border" placeholder="Piezas / Kilos" v-model="PiezasKilo" v-on:keyup.enter="focusNextInput('inputP')" style="height: 60px; border: none; border-left: 2px solid #696565; border-right: 2px solid #696565;">
             </div>
             <div class="input-group input-group-lg mb-3">
-                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')" style="height: 60px; border: none; border-bottom: 2px solid #696565;">
+                <input id="inputP" type="number" @input="calcularTotalPorcentaje" class="form-control custom-border" placeholder="00.00" v-model="precioCompra" v-on:keyup.enter="focusNextInput('inputCajas')" style="height: 60px; border: none; border-bottom: 2px solid #696565; border-left: 2px solid #696565; border-right: 2px solid #696565;">
             </div>            
             <table class="table mt-4">
                 <thead>
@@ -87,10 +87,8 @@
             </div>
             <div class="input-group input-group-lg">
                 <p class="input-group-text" style="font-size: 20px; border: none;">Precio recomendado:</p>
-                <p class="input-group-text text-danger" style="width: 180px;font-size: 24px; border: none; background-color: #ffffff00;">$ : {{ sumaP4 }}</p>
-            </div>
-            
-            
+                <p class="input-group-text text-danger" style="width: 160px;font-size: 24px; border: none; background-color: #ffffff00;">$ : {{ sumaP4 }}</p>
+            </div>            
         </div>
     </div>
 
