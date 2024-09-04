@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones en el sitio</title>
+</head>
+<body>
+
+<button onclick="showNotification()">Mostrar Notificación</button>
+
+<script>
+    // Solicitar permiso para las notificaciones
+    function requestNotificationPermission() {
+        if ('Notification' in window) {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    console.log('Permiso concedido para notificaciones');
+                }
+            });
+        }
+    }
+
+    // Función para mostrar una notificación
+    function showNotification() {
+        if (Notification.permission === 'granted') {
+            const notification = new Notification('¡Bienvenido!', {
+                body: 'Gracias por visitar nuestro sitio web.',
+                icon: 'https://example.com/icon.png' // Reemplaza con tu icono
+            });
+
+            // Acciones opcionales al hacer clic en la notificación
+            notification.onclick = function() {
+                window.focus();
+            };
+        }
+    }
+
+    // Solicitar permiso al cargar la página
+    window.onload = function() {
+        requestNotificationPermission();
+    };
+</script>
+
+</body>
+</html>
