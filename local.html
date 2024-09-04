@@ -3,65 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obtener Ubicación del Usuario</title>
+    <title>Calcular Distancia</title>
 </head>
 <body>
 
-<button onclick="getLocation()">Obtener Ubicación para Calcular Envío</button>
-
-<p id="status"></p>
-<p id="location"></p>
+<button onclick="getUserDistance()">Calcular Distancia de Envío</button>
+<p id="result"></p>
 
 <script>
-function getLocation() {
-    // Verificar si el navegador soporta la geolocalización
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radio de la Tierra en kilómetros
+    const dLat = toRadians(lat2 - lat1);
+    const dLon = toRadians(lon2 - lon1);
+    const a = 
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * 
+        Math.sin(dLon / 2) * Math.sin(dLon / 2); 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+    const distance = R * c;
+    return distance;
+}
+
+function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+function getUserDistance() {
+    const refLat = 19.557616787139978;
+    const refLon = -96.97592499922268;
+
     if (navigator.geolocation) {
-        document.getElementById("status").innerHTML = "Obteniendo ubicación...";
-        
-        // Intentar obtener la ubicación
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+            const distance = calculateDistance(refLat, refLon, userLat, userLon);
+            document.getElementById("result").innerHTML = `La distancia es de ${distance.toFixed(2)} kilómetros.`;
+        }, function(error) {
+            document.getElementById("result").innerHTML = "Error al obtener la ubicación.";
+        });
     } else {
-        document.getElementById("status").innerHTML = "La geolocalización no es soportada por este navegador.";
+        document.getElementById("result").innerHTML = "La geolocalización no es soportada por este navegador.";
     }
 }
-
-function showPosition(position) {
-    // Mostrar la latitud y longitud
-    document.getElementById("status").innerHTML = "Ubicación obtenida con éxito.";
-    document.getElementById("location").innerHTML = "Latitud: " + position.coords.latitude + 
-    "<br>Longitud: " + position.coords.longitude;
-    
-    // Aquí puedes usar las coordenadas para calcular el costo de envío
-    // let cost = calculateShipping(position.coords.latitude, position.coords.longitude);
-}
-
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            document.getElementById("status").innerHTML = "Usuario denegó el permiso para acceder a la ubicación.";
-            break;
-        case error.POSITION_UNAVAILABLE:
-            document.getElementById("status").innerHTML = "La información de la ubicación no está disponible.";
-            break;
-        case error.TIMEOUT:
-            document.getElementById("status").innerHTML = "El tiempo de solicitud de ubicación ha expirado.";
-            break;
-        case error.UNKNOWN_ERROR:
-            document.getElementById("status").innerHTML = "Ocurrió un error desconocido.";
-            break;
-    }
-}
-
-// Función para calcular el costo de envío (ejemplo básico)
-/*
-function calculateShipping(latitude, longitude) {
-    // Lógica para calcular el costo basado en la ubicación
-    // Por ejemplo, podrías usar la distancia entre la ubicación del usuario y el almacén.
-    // Esto es solo un ejemplo y deberías personalizarlo según tus necesidades.
-
-    return calculatedCost;
-}
-*/
 </script>
 
 </body>
