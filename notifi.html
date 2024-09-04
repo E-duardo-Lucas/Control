@@ -19,6 +19,7 @@
     function requestNotificationPermission() {
         if ('Notification' in window) {
             Notification.requestPermission().then(permission => {
+                console.log('Permiso de notificación:', permission);
                 if (permission === 'granted') {
                     alert('Permiso concedido para notificaciones.');
                 } else {
@@ -29,6 +30,7 @@
             alert('Tu navegador no soporta notificaciones.');
         }
     }
+
 
     // Función para mostrar la notificación cuando el usuario hace clic
     function showNotification() {
