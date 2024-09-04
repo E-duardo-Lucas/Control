@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcular Distancia</title>
+    <title>Calcular Distancia y Costo de Envío</title>
 </head>
 <body>
 
-<button onclick="getUserDistance()">Calcular Distancia de Envío</button>
+<button onclick="getUserDistance()">Calcular Distancia y Costo de Envío</button>
 <p id="result"></p>
+<p id="location"></p>
+<p id="shippingCost"></p>
 
 <script>
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -37,12 +39,31 @@ function getUserDistance() {
             const userLat = position.coords.latitude;
             const userLon = position.coords.longitude;
             const distance = calculateDistance(refLat, refLon, userLat, userLon);
+            
             document.getElementById("result").innerHTML = `La distancia es de ${distance.toFixed(2)} kilómetros.`;
+            document.getElementById("location").innerHTML = `Latitud: ${userLat.toFixed(6)}, Longitud: ${userLon.toFixed(6)}`;
+            
+            // Calcular el costo de envío
+            const shippingCost = calculateShippingCost(distance);
+            document.getElementById("shippingCost").innerHTML = `El costo de envío es de $${shippingCost.toFixed(2)} pesos.`;
+
         }, function(error) {
             document.getElementById("result").innerHTML = "Error al obtener la ubicación.";
         });
     } else {
         document.getElementById("result").innerHTML = "La geolocalización no es soportada por este navegador.";
+    }
+}
+
+function calculateShippingCost(distance) {
+    if (distance < 1) {
+        return 30;
+    } else if (distance < 2) {
+        return 40;
+    } else if (distance < 3) {
+        return 45;
+    } else {
+        return distance * 15;
     }
 }
 </script>
