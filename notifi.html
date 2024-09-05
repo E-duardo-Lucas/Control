@@ -17,32 +17,49 @@
                 console.log('Service Worker registrado con éxito:', registration);
             })
             .catch(function(error) {
-                console.log('Error al registrar el Service Worker:', error);
+                console.error('Error al registrar el Service Worker:', error);
             });
+    } else {
+        alert('Tu navegador no soporta Service Workers.');
+    }
+
+    // Función para solicitar permiso
+    function requestNotificationPermission() {
+        if ('Notification' in window) {
+            Notification.requestPermission().then(permission => {
+                console.log('Permiso para notificaciones:', permission);
+                if (permission === 'granted') {
+                    alert('Permiso concedido para notificaciones.');
+                } else {
+                    alert('Permiso denegado para notificaciones.');
+                }
+            });
+        } else {
+            alert('Tu navegador no soporta notificaciones.');
+        }
     }
 
     // Función para mostrar la notificación cuando el usuario hace clic
     function showNotification() {
-        if ('Notification' in window && navigator.serviceWorker) {
-            if (Notification.permission === 'granted') {
-                navigator.serviceWorker.ready.then(function(registration) {
-                    registration.showNotification('¡Notificación Activa!', {
-                        body: 'Gracias por hacer clic en el botón.',
-                        icon: 'IcoLogo.png' // Asegúrate de usar un ícono válido
-                    });
+        console.log('Estado del permiso de notificación:', Notification.permission);
+        
+        if (Notification.permission === 'granted') {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.showNotification('¡Notificación Activa!', {
+                    body: 'Gracias por hacer clic en el botón.'
+                }).then(() => {
+                    console.log('Notificación enviada correctamente');
+                }).catch(err => {
+                    console.error('Error al mostrar la notificación:', err);
                 });
-            } else if (Notification.permission === 'default') {
-                // Solicitar permiso si no ha sido otorgado
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        showNotification(); // Intentar mostrar la notificación de nuevo
-                    }
-                });
-            } else {
-                alert('No se pueden mostrar notificaciones sin permiso.');
-            }
+            }).catch(err => {
+                console.error('Error al preparar el Service Worker:', err);
+            });
+        } else if (Notification.permission === 'default') {
+            // Solicitar permiso si no ha sido otorgado
+            requestNotificationPermission();
         } else {
-            alert('Tu navegador no soporta notificaciones o Service Workers.');
+            alert('No se pueden mostrar notificaciones sin permiso.');
         }
     }
 </script>
