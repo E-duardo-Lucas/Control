@@ -34,32 +34,37 @@
 
     // Función para mostrar la notificación cuando el usuario hace clic
     function showNotification() {
-        alert(Notification.permission); // Verificar el estado del permiso
-
-        if (Notification.permission === 'granted') {
-            try {
-                const notification = new Notification('¡Notificación Activa!', {
-                    body: 'Gracias por hacer clic en el botón.',
-                });
-
-                alert('Notificación creada correctamente');
-
-                // Acción cuando se hace clic en la notificación
-                notification.onclick = function() {
-                    window.focus();
-                    alert('Notificación clicada.');
-                };
-            } catch (error) {
-                console.error('Error al crear la notificación:', error);
-                alert('Error al crear la notificación');
-            }
-        } else if (Notification.permission === 'default') {
-            // Vuelve a solicitar permiso si el estado es "default" (aún no aceptado o rechazado)
-            requestNotificationPermission();
-        } else {
-            alert('No se pueden mostrar notificaciones sin permiso.');
-        }
+    if (!('Notification' in window)) {
+        alert('Tu navegador no soporta notificaciones.');
+        return;
     }
+    
+    alert(Notification.permission); // Verificar el estado del permiso
+
+    if (Notification.permission === 'granted') {
+        try {
+            const notification = new Notification('¡Notificación Activa!', {
+                body: 'Gracias por hacer clic en el botón.'
+            });
+
+            alert('Notificación creada correctamente');
+
+            // Acción cuando se hace clic en la notificación
+            notification.onclick = function() {
+                window.focus();
+                alert('Notificación clicada.');
+            };
+        } catch (error) {
+            console.error('Error al crear la notificación:', error);
+            alert(`Error al crear la notificación: ${error.message}`);
+        }
+    } else if (Notification.permission === 'default') {
+        requestNotificationPermission();
+    } else {
+        alert('No se pueden mostrar notificaciones sin permiso.');
+    }
+}
+
 
 
 </script>
