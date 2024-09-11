@@ -500,17 +500,19 @@ const app = new Vue({
                                 totalUno + totalCincuentaCentavos;
         },    
         calcularTotalPorcentaje: function () {
-            this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);
-            this.tp2 = parseFloat(this.precioCompra) * parseFloat(this.p2);    
-            this.tp3 = parseFloat(this.precioCompra) * parseFloat(this.p3);
+            const uno = 1;
+            this.totalPorcen = parseFloat((parseFloat(this.precioCompra) / (uno - parseFloat(this.porcentaje))).toFixed(2));
+            this.tp2 = parseFloat((parseFloat(this.precioCompra) / (uno - parseFloat(this.p2))).toFixed(2));
+            this.tp3 = parseFloat((parseFloat(this.precioCompra) / (uno - parseFloat(this.p3))).toFixed(2));
             const calculo = parseFloat(this.p4) / 100;
-            this.tp4 = parseFloat((parseFloat(this.precioCompra) * calculo).toFixed(2));
+            this.tp4 = parseFloat((parseFloat(this.precioCompra) / (uno - calculo)).toFixed(2));        
         },
         calcularPrecioCompra: function () {
-            this.precioCompra = parseFloat(this.CajaBulto) / parseFloat(this.PiezasKilo);
-            this.totalPorcen = parseFloat(this.precioCompra) * parseFloat(this.porcentaje);  
-            this.tp2 = parseFloat(this.precioCompra) * parseFloat(this.p2);  
-            this.tp3 = parseFloat(this.precioCompra) * parseFloat(this.p3);
+            const uno = 1;
+            this.precioCompra = parseFloat((parseFloat(this.CajaBulto) / parseFloat(this.PiezasKilo)).toFixed(2));
+            this.totalPorcen = parseFloat((parseFloat(this.precioCompra) / (uno - parseFloat(this.porcentaje))).toFixed(2));   
+            this.tp2 = parseFloat((parseFloat(this.precioCompra) / (uno - parseFloat(this.p2))).toFixed(2));  
+            this.tp3 = parseFloat((parseFloat(this.precioCompra) / (uno - parseFloat(this.p3))).toFixed(2));
         },      
         calcularSobrante: function() {
             const diferencia = this.totalEnCorte - this.sumaTotal;
@@ -543,16 +545,16 @@ const app = new Vue({
             return this.datosFiltrados.reduce((suma, item) => suma + parseFloat(item.ganancia), 0);
         },  
         sumaP1: function() {
-            return parseFloat((parseFloat(this.totalPorcen) + parseFloat(this.precioCompra)).toFixed(2));
+            return parseFloat((parseFloat(this.totalPorcen) - parseFloat(this.precioCompra)).toFixed(2));
         },
         sumaP2: function() {
-            return parseFloat((parseFloat(this.tp2) + parseFloat(this.precioCompra)).toFixed(2));
+            return parseFloat((parseFloat(this.tp2) - parseFloat(this.precioCompra)).toFixed(2));
         },
         sumaP3: function() {
-            return parseFloat((parseFloat(this.tp3) + parseFloat(this.precioCompra)).toFixed(2));
+            return parseFloat((parseFloat(this.tp3) - parseFloat(this.precioCompra)).toFixed(2));
         },
         sumaP4: function() {
-            return parseFloat((parseFloat(this.tp4) + parseFloat(this.precioCompra)).toFixed(2));
+            return parseFloat((parseFloat(this.tp4) - parseFloat(this.precioCompra)).toFixed(2));
         }, 
     },    
     mounted() {
