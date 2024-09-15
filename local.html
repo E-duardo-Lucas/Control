@@ -53,17 +53,19 @@
         } else {
             document.getElementById("result").innerHTML = "La geolocalización no es soportada por este navegador.";
         }
+
+        if ("geolocation" in navigator) {
+            alert("Geolocalización está disponible");
+        } else {
+            alert("Geolocalización no está disponible");
+        }
     }
 
     function calculateShippingCost(distance) {
         if (distance < 1) {
-            return 30;
-        } else if (distance < 2) {
-            return 40;
-        } else if (distance < 3) {
-            return 45;
-        } else {
-            return distance * 15;
+            return distance * 12;
+        } else if (distance > 2) {
+            return distance * 7;
         }
     }
 </script>
