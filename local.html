@@ -47,6 +47,10 @@
             const shippingCost = calculateShippingCost(distance);
             document.getElementById("shippingCost").innerHTML = `El costo de envío es de $${shippingCost.toFixed(2)} pesos.`;
 
+            alert(distance);
+            alert(userLat);
+            alert(distance);
+
         }, function(error) {
             let errorMsg;
             switch(error.code) {
