@@ -31,35 +31,46 @@
     }
 
     function getUserDistance() {
-        const refLat = 19.5605462526222;
-        const refLon = -96.97952369073936;
+    const refLat = 19.5605462526222;
+    const refLon = -96.97952369073936;
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const userLat = position.coords.latitude;
-                const userLon = position.coords.longitude;
-                const distance = calculateDistance(refLat, refLon, userLat, userLon);
-                
-                document.getElementById("result").innerHTML = `La distancia es de ${distance.toFixed(2)} kilómetros.`;
-                document.getElementById("location").innerHTML = `Latitud: ${userLat.toFixed(6)}, Longitud: ${userLon.toFixed(6)}`;
-                
-                // Calcular el costo de envío
-                const shippingCost = calculateShippingCost(distance);
-                document.getElementById("shippingCost").innerHTML = `El costo de envío es de $${shippingCost.toFixed(2)} pesos.`;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLat = position.coords.latitude;
+            const userLon = position.coords.longitude;
+            const distance = calculateDistance(refLat, refLon, userLat, userLon);
+            
+            document.getElementById("result").innerHTML = `La distancia es de ${distance.toFixed(2)} kilómetros.`;
+            document.getElementById("location").innerHTML = `Latitud: ${userLat.toFixed(6)}, Longitud: ${userLon.toFixed(6)}`;
+            
+            // Calcular el costo de envío
+            const shippingCost = calculateShippingCost(distance);
+            document.getElementById("shippingCost").innerHTML = `El costo de envío es de $${shippingCost.toFixed(2)} pesos.`;
 
-            }, function(error) {
-                document.getElementById("result").innerHTML = "Error al obtener la ubicación.";
-            });
+        }, function(error) {
+            let errorMsg;
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMsg = "El usuario denegó el permiso para la geolocalización.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMsg = "La ubicación no está disponible.";
+                    break;
+                case error.TIMEOUT:
+                    errorMsg = "La solicitud para obtener la ubicación ha expirado.";
+                    break;
+                default:
+                    errorMsg = "Ocurrió un error desconocido.";
+                    break;
+            }
+            document.getElementById("result").innerHTML = errorMsg;
+            alert(errorMsg);
+        });
         } else {
             document.getElementById("result").innerHTML = "La geolocalización no es soportada por este navegador.";
         }
-
-        if ("geolocation" in navigator) {
-            alert("Geolocalización está disponible");
-        } else {
-            alert("Geolocalización no está disponible");
-        }
     }
+
 
     function calculateShippingCost(distance) {
         if (distance < 1) {
